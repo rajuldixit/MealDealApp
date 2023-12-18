@@ -5,6 +5,7 @@ import RecipeDetails from "../../components/recipeDetails";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { IButtonIconPosition } from "../../utils/types";
+import MoreRecipeOptions from "./../../components/moreRecipeOptions";
 
 const MealDetails = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const MealDetails = () => {
         }}
       />
       <RecipeDetails />
+      <MoreRecipeOptions />
     </Box>
   );
 };
