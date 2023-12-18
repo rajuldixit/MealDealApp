@@ -15,7 +15,8 @@ const HeroBannerPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#E3E5E8",
   boxSizing: "border-box",
-  borderRadius: "16px"
+  borderRadius: "16px",
+  padding: "0 8% 0 2%"
 }));
 
 const HeroBanner = () => {
@@ -23,17 +24,20 @@ const HeroBanner = () => {
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const navigate = useNavigate();
   const showRecipe = () => {
-    navigate("/mealDetails", { state: "52784" });
+    navigate(`/mealDetails/52784`, { state: "52784" });
   };
   return (
     <HeroBannerPaper elevation={0}>
       <Stack
         flexDirection={"row"}
-        justifyContent={"space-around"}
+        justifyContent={"space-between"}
         alignItems={"center"}
       >
         <Box>
-          <Typography variant="h4" my={2}>
+          <Typography
+            my={2}
+            sx={{ typography: { xs: "h6", sm: "h5", md: "h4", lg: "h3" } }}
+          >
             Vegan Lasagna
           </Typography>
           <PrimaryButton label="View Recipe" onClick={showRecipe} />

@@ -18,7 +18,7 @@ const AppLayout = () => {
       >
         <Stack
           sx={{
-            width: { xs: "100%", sm: "30%", md: "18%" },
+            width: { xs: "100%", sm: "30%", md: "28%", lg: "18%" },
             padding: "10px",
             boxSizing: "border-box"
           }}
@@ -27,8 +27,13 @@ const AppLayout = () => {
         </Stack>
         <Stack
           sx={{
-            width: { xs: "100%", sm: "70%", md: "82%" },
-            padding: { xs: "10px", sm: "10px 2%", md: "10px 5%" },
+            width: { xs: "100%", sm: "70%", md: "72%", lg: "82%" },
+            padding: {
+              xs: "10px",
+              sm: "10px 2%",
+              md: "10px 2%",
+              lg: "10px 5%"
+            },
             boxSizing: "border-box"
           }}
         >

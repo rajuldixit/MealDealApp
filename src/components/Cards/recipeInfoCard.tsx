@@ -7,10 +7,36 @@ import {
   CardMedia,
   IconButton,
   Typography,
-  Stack
+  Stack,
+  styled
 } from "@mui/material";
 import InfoChip from "../Chips/infoChip";
+import ClockIcon from "../../assets/icons/clock.svg";
+import GraphIcon from "../../assets/icons/graph.svg";
 
+const TitleTypography = styled(Typography)(({ theme }) => ({
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  [theme.breakpoints.up("lg")]: {
+    width: "260px",
+    fontWeight: "bold",
+    fontSize: "18px"
+  },
+  [theme.breakpoints.between("md", "lg")]: {
+    width: "184px",
+    fontWeight: "bold",
+    fontSize: "18px"
+  },
+  [theme.breakpoints.between("sm", "md")]: {
+    width: "250px",
+    fontSize: "16px"
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "230px",
+    fontSize: "14px"
+  }
+}));
 interface IRecipe {
   recipe: IRecipeInfo;
   onSelect: () => void;
@@ -33,32 +59,38 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
         component="img"
         sx={{ width: 151 }}
         image={image}
-        alt="Live from space album cover"
+        alt="recipe-image"
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h5">
-            {name}
-          </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
-              {duration}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
-              {expertLevel}
-            </Typography>
+          <TitleTypography>{name}</TitleTypography>
+          <Box sx={{ display: "flex", alignItems: "center", pb: 1, pt: 0.5 }}>
+            <Stack flexDirection={"row"} mr={1}>
+              <img src={ClockIcon} />
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+                sx={{ marginLeft: "4px" }}
+              >
+                {duration}
+              </Typography>
+            </Stack>
+            <Stack flexDirection={"row"}>
+              <img src={GraphIcon} />
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                component="div"
+                sx={{ marginLeft: "4px" }}
+              >
+                {expertLevel}
+              </Typography>
+            </Stack>
           </Box>
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          {tags && tags.map((tag) => <InfoChip key={tag} />)}
+        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 2 }}>
+          {tags && tags.map((tag) => <InfoChip tag={tag} />)}
         </Box>
       </Box>
     </Card>

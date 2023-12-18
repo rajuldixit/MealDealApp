@@ -13,7 +13,7 @@ const AppRoutes = () => {
           <Route element={<AppLayout />}>
             <Route path="/" element={<Home />} />
             <Route
-              path="/mealDetails"
+              path="/mealDetails/:id"
               element={
                 <Suspense fallback={<h1>Loading</h1>}>
                   <MealDetails />

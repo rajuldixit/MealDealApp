@@ -1,23 +1,30 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import React from "react";
-import { IButtonType } from "../../utils/types";
+import React, { cloneElement } from "react";
+import { IButtonIconPosition, IButtonType } from "../../utils/types";
 
 const ColorContainedButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: "white",
   backgroundColor: "#15C421",
   "&:hover": {
     backgroundColor: "#05820e"
-  }
+  },
+  textTransform: "none"
 }));
 
 const PrimaryButton: React.FC<IButtonType> = ({
   label,
   onClick,
-  icon = ""
+  buttonIcon
 }) => {
   return (
     <ColorContainedButton variant="contained" onClick={onClick}>
+      {buttonIcon &&
+        buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
+        cloneElement(buttonIcon.icon, { size: 24, "stroke-width": 2 })}
       {label}
+      {buttonIcon &&
+        buttonIcon.position == IButtonIconPosition.RIGHT.toString() &&
+        cloneElement(buttonIcon.icon, { size: 24, "stroke-width": 2 })}
     </ColorContainedButton>
   );
 };
