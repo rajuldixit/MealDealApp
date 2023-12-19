@@ -12,11 +12,17 @@ const TextButton: React.FC<IButtonType> = ({ label, onClick, buttonIcon }) => {
     <ColorTextButton onClick={onClick} variant="text">
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
-        cloneElement(buttonIcon.icon, { size: 24, "stroke-width": 2 })}
+        cloneElement(buttonIcon.icon, {
+          "stroke-width": 1,
+          "margin-right": "4px"
+        })}
       {label}
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.RIGHT.toString() &&
-        cloneElement(buttonIcon.icon, { size: 24, "stroke-width": 2 })}
+        cloneElement(buttonIcon.icon, {
+          "stroke-width": 1,
+          "margin-left": "4px"
+        })}
     </ColorTextButton>
   );
 };

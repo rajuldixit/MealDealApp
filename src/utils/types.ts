@@ -17,3 +17,18 @@ export enum IButtonIconPosition {
   RIGHT,
   LEFT
 }
+
+export enum ExperienceLevel {
+  ADVANCE = "Advance",
+  EXPERT = "Expert",
+  BEGINNER = "Beginner",
+  INTERMEDIATE = "Intermediate"
+}
+
+export interface IRecipeDetails {
+  basicDetails: IRecipeInfo;
+  description: string;
+  instructions: Array<string>;
+  ingredients: Array<string>;
+  measurements: Array<string>;
+}

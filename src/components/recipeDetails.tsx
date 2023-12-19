@@ -9,47 +9,86 @@ import SecondaryButton from "./Buttons/secondaryButton";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { IButtonIconPosition } from "../utils/types";
+import useFormatRecipeDetails from "../hooks/useFormatRecipeDetails";
+
+const recipe1 = {
+  idMeal: "52913",
+  strMeal: "Brie wrapped in prosciutto & brioche",
+  strDrinkAlternate: null,
+  strCategory: "Side",
+  strArea: "French",
+  strInstructions:
+    "Mix the flour, 1 tsp salt, caster sugar, yeast, milk and eggs together in a mixer using the dough attachment for 5 mins until the dough is smooth. Add the butter and mix for a further 4 mins on medium speed. Scrape the dough bowl and mix again for 1 min. Place the dough in a container, cover with cling film and leave in the fridge for at least 6 hrs before using.\r\nWrap the Brie in the prosciutto and set aside. Turn out the dough onto a lightly floured surface. Roll into a 25cm circle. Place the wrapped Brie in the middle of the circle and fold the edges in neatly. Put the parcel onto a baking tray lined with baking parchment and brush with beaten egg. Chill in the fridge for 30 mins, then brush again with beaten egg and chill for a further 30 mins. Leave to rise for 1 hr at room temperature. Heat oven to 200C/180C fan/gas 6, then bake for 22 mins. Serve warm.",
+  strMealThumb:
+    "https://www.themealdb.com/images/media/meals/qqpwsy1511796276.jpg",
+  strTags: "SideDish,Treat,Baking",
+  strYoutube: "https://www.youtube.com/watch?v=FzNPPD8lbWg",
+  strIngredient1: "Plain Flour",
+  strIngredient2: "Caster Sugar",
+  strIngredient3: "Yeast",
+  strIngredient4: "Milk",
+  strIngredient5: "Eggs",
+  strIngredient6: "Eggs",
+  strIngredient7: "Butter",
+  strIngredient8: "Brie",
+  strIngredient9: "Prosciutto",
+  strIngredient10: "",
+  strIngredient11: "",
+  strIngredient12: "",
+  strIngredient13: "",
+  strIngredient14: "",
+  strIngredient15: "",
+  strIngredient16: "",
+  strIngredient17: "",
+  strIngredient18: "",
+  strIngredient19: "",
+  strIngredient20: "",
+  strMeasure1: "375g",
+  strMeasure2: "50g",
+  strMeasure3: "7g",
+  strMeasure4: "75g",
+  strMeasure5: "3 Large",
+  strMeasure6: "To Glaze",
+  strMeasure7: "180g",
+  strMeasure8: "250g",
+  strMeasure9: "8 slices",
+  strMeasure10: "",
+  strMeasure11: "",
+  strMeasure12: "",
+  strMeasure13: "",
+  strMeasure14: "",
+  strMeasure15: "",
+  strMeasure16: "",
+  strMeasure17: "",
+  strMeasure18: "",
+  strMeasure19: "",
+  strMeasure20: "",
+  strSource:
+    "https://www.bbcgoodfood.com/recipes/1803634/brie-wrapped-in-prosciutto-and-brioche",
+  strImageSource: null,
+  strCreativeCommonsConfirmed: null,
+  dateModified: null
+};
 
 const RecipeDetails = () => {
-  const [instruction, setInstruction] = useState<Array<string>>(new Array());
-  const [ingredients, setIngredients] = useState<Array<string>>(new Array());
+  const { format, recipe } = useFormatRecipeDetails();
+
+  const getFormattedRecipe = async () => {
+    await format(recipe1);
+    console.log("recipe :", recipe);
+  };
+  const ingredients = () => {
+    return recipe?.ingredients.map((item, idx) => (
+      <Stack flexDirection={"row"} justifyContent={"start"} mb={0.5}>
+        <Typography sx={{ fontWeight: "bold" }} variant="body2" mr={0.5}>
+          {recipe.measurements[idx]}
+        </Typography>
+        <Typography variant="body2">{item}</Typography>
+      </Stack>
+    ));
+  };
   useEffect(() => {
-    const strIngredients = {
-      strIngredient1: "Plain Flour",
-      strIngredient2: "Caster Sugar",
-      strIngredient3: "Yeast",
-      strIngredient4: "Milk",
-      strIngredient5: "Eggs",
-      strIngredient6: "Eggs",
-      strIngredient7: "Butter",
-      strIngredient8: "Brie",
-      strIngredient9: "Prosciutto"
-    };
-    const strMeasurements = {
-      strMeasure1: "375g",
-      strMeasure2: "50g",
-      strMeasure3: "7g",
-      strMeasure4: "75g",
-      strMeasure5: "3 Large",
-      strMeasure6: "To Glaze",
-      strMeasure7: "180g",
-      strMeasure8: "250g",
-      strMeasure9: "8 slices"
-    };
-    const strInstruction =
-      "Mix the flour, 1 tsp salt, caster sugar, yeast, milk and eggs together in a mixer using the dough attachment for 5 mins until the dough is smooth. Add the butter and mix for a further 4 mins on medium speed. Scrape the dough bowl and mix again for 1 min. Place the dough in a container, cover with cling film and leave in the fridge for at least 6 hrs before using.\r\nWrap the Brie in the prosciutto and set aside. Turn out the dough onto a lightly floured surface. Roll into a 25cm circle. Place the wrapped Brie in the middle of the circle and fold the edges in neatly. Put the parcel onto a baking tray lined with baking parchment and brush with beaten egg. Chill in the fridge for 30 mins, then brush again with beaten egg and chill for a further 30 mins. Leave to rise for 1 hr at room temperature. Heat oven to 200C/180C fan/gas 6, then bake for 22 mins. Serve warm.";
-
-    const splitedInstruction = strInstruction.split("\r\n");
-    setInstruction([...splitedInstruction]);
-
-    let newIngre = new Array();
-    for (let i = 0; i < Object.keys(strIngredients).length; i++) {
-      newIngre[i] =
-        Object.values(strMeasurements)[i] +
-        " " +
-        Object.values(strIngredients)[i];
-    }
-    setIngredients([...newIngre]);
+    getFormattedRecipe();
   }, []);
   return (
     <Box>
@@ -64,12 +103,12 @@ const RecipeDetails = () => {
       >
         <Box sx={{ width: { xs: "100%", sm: "240px", lg: "300px" } }}>
           <img
-            src="https://www.themealdb.com/images/media/meals/qqpwsy1511796276.jpg"
+            src={recipe?.basicDetails.image}
             style={{ width: "inherit", borderRadius: "8px" }}
           />
         </Box>
         <Box ml={2}>
-          <Box sx={{ display: "flex", alignItems: "center", pb: 1, pt: 0.5 }}>
+          <Box sx={{ display: "flex", alignItems: "center", pb: 1 }}>
             <Stack flexDirection={"row"} mr={1}>
               <img src={ClockIcon} />
               <Typography
@@ -78,7 +117,7 @@ const RecipeDetails = () => {
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >
-                {"2h 30m"}
+                {recipe?.basicDetails.duration}
               </Typography>
             </Stack>
             <Stack flexDirection={"row"}>
@@ -89,20 +128,21 @@ const RecipeDetails = () => {
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >
-                {"Advanced"}
+                {recipe?.basicDetails.expertLevel}
               </Typography>
             </Stack>
           </Box>
-          <Typography component={"div"} variant="h4">
-            {"Brie wrapped in prosciutto & brioche"}
+          <Typography
+            component={"div"}
+            mt={2}
+            sx={{ typography: { xs: "h5", sm: "h5", md: "h5", lg: "h4" } }}
+          >
+            {recipe?.basicDetails.name}
           </Typography>
-          <Typography component={"div"} variant="body1">
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-               nisi ut aliquip ex ea commodo consequat.`}
+          <Typography component={"div"} variant="body1" mt={2} mb={2}>
+            {recipe?.description}
           </Typography>
-          {["Dessert", "French"].map((tag) => (
+          {recipe?.basicDetails.tags.map((tag) => (
             <InfoChip tag={tag} />
           ))}
           <Stack
@@ -110,7 +150,8 @@ const RecipeDetails = () => {
             sx={{
               display: "flex",
               justifyContent: "start",
-              alignItems: "center"
+              alignItems: "center",
+              mt: 4
             }}
           >
             <PrimaryButton
@@ -138,22 +179,19 @@ const RecipeDetails = () => {
           justifyContent: "start",
           pb: 1,
           pt: 0.5,
-          flexDirection: { xs: "column", md: "row" }
+          mt: 4,
+          flexDirection: { xs: "column", sm: "row" }
         }}
       >
         <Box sx={{ width: { xs: "100%", sm: "240px", lg: "300px" } }}>
           <Typography component={"div"} variant="h6" mb={2}>
             Ingredients
           </Typography>
-          {ingredients &&
-            ingredients.map((item) => (
-              <Typography component={"div"} variant="body2" mb={0.5}>
-                {item}
-              </Typography>
-            ))}
+          {ingredients()}
         </Box>
         <Box
-          ml={2}
+          ml={{ xs: 0, sm: 4 }}
+          mt={{ xs: 4, sm: 0 }}
           sx={{
             width: {
               xs: "100%",
@@ -166,8 +204,8 @@ const RecipeDetails = () => {
             Instructions
           </Typography>
 
-          {instruction &&
-            instruction.map((item) => (
+          {recipe?.instructions &&
+            recipe?.instructions.map((item) => (
               <Typography component={"div"} variant="body2" mb={3}>
                 {item}
               </Typography>
