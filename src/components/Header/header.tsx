@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import SearchBar from "./searchBar";
+import SearchPanel from "../SearchPanel";
 
 const Header = () => {
   return (
@@ -14,7 +14,7 @@ const Header = () => {
       >
         Discover Recipes
       </Typography>
-      <SearchBar />
+      <SearchPanel />
     </Stack>
   );
 };

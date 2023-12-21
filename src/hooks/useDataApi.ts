@@ -50,7 +50,7 @@ const useDataApi = () => {
     setActionExecuting(true);
     try {
       await fetchApi(`${base_url}${urls.CATEGORIES}`).then((resp: any) => {
-        console.log("resp :", resp);
+        console.log("resp :", resp["data"]["categories"]);
         setCategories(resp["data"]["categories"]);
       });
     } catch (err) {
