@@ -67,7 +67,8 @@ const LeftNav = () => {
           my={2}
           sx={{
             position: `${item?.style?.position}` || "",
-            bottom: `${item?.style?.bottom}` || ""
+            bottom: `${item?.style?.bottom}` || "",
+            cursor: "pointer"
           }}
         >
           <img src={item.icon} style={{ width: "24px" }} />

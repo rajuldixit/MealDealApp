@@ -7,25 +7,65 @@ import {
   useMediaQuery,
   useTheme
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryButton from "./Buttons/primaryButton";
 import { useNavigate } from "react-router-dom";
+import { Category, MealsByCategory } from "../utils/types";
+import useDataApi from "../hooks/useDataApi";
 
 const HeroBannerPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
   backgroundColor: "#E3E5E8",
   boxSizing: "border-box",
   borderRadius: "16px",
-  padding: "0 8% 0 2%"
+  [theme.breakpoints.up("sm")]: {
+    padding: "1% 8% 2%"
+  },
+  [theme.breakpoints.between("xs", "sm")]: {
+    padding: "4%"
+  }
 }));
+
+const defaultRecipeData = {
+  idMeal: "53080",
+  strMeal: "Blini Pancakes",
+  strMealThumb:
+    "https://www.themealdb.com/images/media/meals/0206h11699013358.jpg"
+};
 
 const HeroBanner = () => {
   const theme = useTheme();
+  const strCategory = "Side";
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const navigate = useNavigate();
+  const {
+    fetchMealsByCategory,
+    heroBannerMeal,
+    actionExecuting,
+    errorMessage
+  } = useDataApi();
+  const [recipe, setRecipe] = useState<MealsByCategory>(defaultRecipeData);
   const showRecipe = () => {
-    navigate(`/mealDetails/52784`, { state: "52784" });
+    navigate(`/mealDetails/${recipe.idMeal}`);
   };
+  const heroRecipe = async () => {
+    await fetchMealsByCategory(strCategory);
+  };
+  useEffect(() => {
+    if (heroBannerMeal && heroBannerMeal.length > 0) {
+      setRecipe(heroBannerMeal[0]);
+    }
+  }, [heroBannerMeal]);
+  useEffect(() => {
+    heroRecipe();
+  }, [!!heroBannerMeal]);
+
+  if (errorMessage) {
+    return <div>Error {errorMessage}</div>;
+  }
+  if (actionExecuting) {
+    return <div>loading</div>;
+  }
   return (
     <HeroBannerPaper elevation={0}>
       <Stack
@@ -33,25 +73,29 @@ const HeroBanner = () => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Box>
-          <Typography
-            my={2}
-            sx={{ typography: { xs: "h6", sm: "h5", md: "h4", lg: "h3" } }}
-          >
-            Vegan Lasagna
-          </Typography>
-          <PrimaryButton label="View Recipe" onClick={showRecipe} />
-        </Box>
-        <Box>
-          <img
-            src="https://www.themealdb.com/images/media/meals/rvxxuy1468312893.jpg"
-            alt="img"
-            style={{
-              width: matches ? "200px" : "125px",
-              borderRadius: "50%"
-            }}
-          />
-        </Box>
+        {!actionExecuting && !!recipe && (
+          <>
+            <Box>
+              <Typography
+                my={2}
+                sx={{ typography: { xs: "h6", sm: "h5", md: "h4", lg: "h3" } }}
+              >
+                {recipe?.strMeal}
+              </Typography>
+              <PrimaryButton label="View Recipe" onClick={showRecipe} />
+            </Box>
+            <Box>
+              <img
+                src={recipe?.strMealThumb}
+                alt="img"
+                style={{
+                  width: matches ? "200px" : "125px",
+                  borderRadius: "50%"
+                }}
+              />
+            </Box>
+          </>
+        )}
       </Stack>
     </HeroBannerPaper>
   );

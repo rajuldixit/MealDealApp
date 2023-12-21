@@ -32,3 +32,16 @@ export interface IRecipeDetails {
   ingredients: Array<string>;
   measurements: Array<string>;
 }
+
+export interface Category {
+  idCategory: string;
+  strCategory: string;
+  strCategoryDescription: string;
+  strCategoryThumb: string;
+}
+
+export interface MealsByCategory {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
