@@ -67,7 +67,7 @@ const useDataApi = () => {
       let randomMeals = new Array();
       for (let i = 0; i < 4; i++) {
         await fetchApi(`${base_url}${urls.RANDOMMEAL}`).then((resp: any) => {
-          randomMeals.push(resp["meals"][0]);
+          randomMeals.push(resp["data"]["meals"][0]);
         });
       }
       setRandomMeals([...randomMeals]);

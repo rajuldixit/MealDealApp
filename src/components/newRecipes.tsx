@@ -1,59 +1,51 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import TextButton from "./Buttons/textButton";
-import { IButtonIconPosition, IRecipeInfo } from "../utils/types";
+import {
+  ExperienceLevel,
+  IButtonIconPosition,
+  IRecipeInfo
+} from "../utils/types";
 import RecipeInfoCard from "./Cards/recipeInfoCard";
 import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import useDataApi from "../hooks/useDataApi";
 
 const NewRecipes = () => {
+  const { fetchRandomMeal, randomMeals, errorMessage, actionExecuting } =
+    useDataApi();
   const [recipes, setRecipes] = useState<IRecipeInfo[]>(new Array());
   const navigate = useNavigate();
   const showRecipe = (recipe: IRecipeInfo) => {
     navigate(`/mealDetails/${recipe.id}`);
   };
+  const getNewRecipes = async () => {
+    await fetchRandomMeal();
+  };
   useEffect(() => {
-    const recipees = [
-      {
-        id: "52784",
-        name: "Smoky Lentil Chili with Squash",
-        image:
-          "https://www.themealdb.com/images/media/meals/uwxqwy1483389553.jpg",
-        tags: ["Pulse"],
+    const formedRecipes = randomMeals.map((meal) => {
+      return {
+        id: meal.idMeal,
+        name: meal.strMeal,
+        image: meal.strMealThumb,
+        tags: new Array(meal.strTags),
         duration: "2h 30m",
-        expertLevel: "Intermediate"
-      },
-      {
-        id: "52773",
-        name: "Honey Teriyaki Salmon",
-        image:
-          "https://www.themealdb.com/images/media/meals/xxyupu1468262513.jpg",
-        tags: ["Fish", "Breakfast", "DateNight"],
-        duration: "2h 30m",
-        expertLevel: "Beginner"
-      },
-      {
-        id: "53024",
-        name: "Rogaliki (Polish Croissant Cookies)",
-        image:
-          "https://www.themealdb.com/images/media/meals/7mxnzz1593350801.jpg",
-        tags: [],
-        duration: "45m",
-        expertLevel: "Advanced"
-      },
-      {
-        id: "52994",
-        name: "Skillet Apple Pork Chops with Roasted Sweet Potatoes & Zucchini",
-        image:
-          "https://www.themealdb.com/images/media/meals/h3ijwo1581013377.jpg",
-        tags: ["Breakfast", "DateNight"],
-        duration: "2h 30m",
-        expertLevel: "Intermediate"
-      }
-    ];
-    setRecipes([...recipees]);
+        expertLevel: ExperienceLevel.ADVANCE
+      };
+    });
+    setRecipes([...formedRecipes]);
+  }, [randomMeals]);
+  useEffect(() => {
+    getNewRecipes();
   }, []);
+
+  if (errorMessage) {
+    return <div>Error {errorMessage}</div>;
+  }
+  if (actionExecuting) {
+    return <div>loading</div>;
+  }
 
   return (
     <>
@@ -75,17 +67,19 @@ const NewRecipes = () => {
           }}
         />
       </Stack>
-      <Grid container spacing={2}>
-        {recipes &&
-          recipes.map((recipe) => (
-            <Grid item xs={12} md={6}>
-              <RecipeInfoCard
-                recipe={recipe}
-                onSelect={() => showRecipe(recipe)}
-              />
-            </Grid>
-          ))}
-      </Grid>
+      {!actionExecuting && recipes && (
+        <Grid container spacing={2}>
+          {recipes &&
+            recipes.map((recipe) => (
+              <Grid item xs={12} md={6}>
+                <RecipeInfoCard
+                  recipe={recipe}
+                  onSelect={() => showRecipe(recipe)}
+                />
+              </Grid>
+            ))}
+        </Grid>
+      )}
     </>
   );
 };
