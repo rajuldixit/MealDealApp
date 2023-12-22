@@ -7,9 +7,11 @@ import fetchApi from "../lib/fetchApi";
 const useDataApi = () => {
   const base_url =
     process.env.BASE_URL || "https://www.themealdb.com/api/json/v1/1/";
+
   const [ingredients, setIngredients] = useState(new Array());
   const [categories, setCategories] = useState<Category[]>(new Array());
   const [areas, setAreas] = useState(new Array());
+
   const [randomMeals, setRandomMeals] = useState(new Array());
   const [suggestRecipes, setSuggestedRecipes] = useState(new Array());
   const [mealDetails, setMealDetails] = useState();
@@ -85,7 +87,7 @@ const useDataApi = () => {
     try {
       await fetchApi(`${base_url}${urls.MEALSBYCATEGORY}${category}`).then(
         (resp: any) => {
-          setHeroBannerMeal(resp["data"]["meals"]);
+          setSuggestedRecipes(resp["data"]["meals"]);
         }
       );
     } catch (err) {
@@ -127,6 +129,24 @@ const useDataApi = () => {
       setActionExecuting(false);
     }
   };
+  const fetchMealByName = async (name: string) => {
+    setActionExecuting(true);
+    try {
+      await fetchApi(`${base_url}${urls.SEARCHBYNAME}${name}`).then(
+        (resp: any) => {
+          console.log(resp["data"]);
+
+          setSuggestedRecipes(resp["data"]["meals"]);
+        }
+      );
+    } catch (err) {
+      const error = err as AxiosError;
+      const errorData = error?.response?.data || "error";
+      setErrorMessage(errorData as string);
+    } finally {
+      setActionExecuting(false);
+    }
+  };
 
   return {
     fetchMealById,
@@ -136,6 +156,7 @@ const useDataApi = () => {
     fetchCategories,
     fetchIngredients,
     fetchMealsByFirstLetter,
+    fetchMealByName,
     suggestRecipes,
     ingredients,
     areas,

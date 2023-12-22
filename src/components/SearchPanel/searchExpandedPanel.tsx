@@ -9,7 +9,7 @@ import {
   Stack,
   Button
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AreasList from "./areasList";
 import CategoriesList from "./categoriesList";
@@ -43,6 +43,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const { onClose, selectedValue, open } = props;
   const [searchString, setSearchString] = useState("");
   const [type, setType] = useState(OPTIONS.RECIPE);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const handleClose = () => {
     // onClose(selectedValue);
   };
@@ -50,6 +51,29 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const handleListItemClick = (value: string) => {
     // onClose(value);
   };
+  const onSelectedCategory = (category: string) => {
+    setSelectedCategory((prev) => category);
+    setSearchString("");
+    setType(OPTIONS.RECIPE);
+  };
+
+  const onEnteringSearchStr = (str: string) => {
+    setSelectedCategory("");
+    setSearchString(str);
+    setType(OPTIONS.RECIPE);
+  };
+
+  // const onSelectArea = (category: string) => {
+  //   setSelectedCategory((prev) => category);
+  //   setSearchString("");
+  //   setType(OPTIONS.RECIPE);
+  // };
+
+  // const onSelectIngredients = (str: string) => {
+  //   setSelectedCategory("");
+  //   setSearchString(str);
+  //   setType(OPTIONS.RECIPE);
+  // };
 
   return (
     <Dialog
@@ -79,7 +103,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
           id="recipe-search-bar"
           label="Search"
           placeholder="Search"
-          onChange={(e) => setSearchString(e.target.value)}
+          onChange={(e) => onEnteringSearchStr(e.target.value)}
           sx={{
             width: { xs: "300px", sm: "600px", md: "800px" }
           }}
@@ -116,7 +140,10 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
             >
               {type === OPTIONS.RECIPE && (
                 <Box>
-                  <SuggestedRecipes searchString={searchString} />
+                  <SuggestedRecipes
+                    searchString={searchString}
+                    selectedCategory={selectedCategory}
+                  />
                 </Box>
               )}
               {type === OPTIONS.AREAS && (
@@ -126,7 +153,11 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
               )}
               {type === OPTIONS.CATEGORY && (
                 <Box>
-                  <CategoriesList />
+                  <CategoriesList
+                    selectedCategory={(category: string) =>
+                      onSelectedCategory(category)
+                    }
+                  />
                 </Box>
               )}
               {type === OPTIONS.INGREDIENTS && (

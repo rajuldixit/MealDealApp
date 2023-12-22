@@ -10,12 +10,22 @@ interface ICategoryOptions {
   strCategoryThumb: string;
 }
 
-const CategoriesList = () => {
+interface ICategoryProps {
+  selectedCategory: (arg: string) => void;
+}
+
+const CategoriesList: React.FC<ICategoryProps> = ({
+  selectedCategory
+}: ICategoryProps) => {
   const { fetchCategories, categories, errorMessage, actionExecuting } =
     useDataApi();
 
   const getCategories = async () => {
     await fetchCategories();
+  };
+
+  const selectedItem = (e: any) => {
+    console.log(e);
   };
 
   useEffect(() => {
@@ -34,7 +44,13 @@ const CategoriesList = () => {
         <Grid container spacing={2}>
           {categories &&
             categories.map((recipe) => (
-              <Grid item xs={6} sm={4} md={3}>
+              <Grid
+                item
+                xs={6}
+                sm={4}
+                md={3}
+                onClick={() => selectedCategory(recipe.strCategory)}
+              >
                 <CategoryInfoCard
                   key={recipe.idCategory}
                   name={recipe.strCategory}

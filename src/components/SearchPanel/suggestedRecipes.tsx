@@ -6,43 +6,71 @@ import RecipeInfoCard from "../Cards/recipeInfoCard";
 
 interface ISuggestedProps {
   searchString: string;
+  selectedCategory: string;
 }
 
 const SuggestedRecipes: React.FC<ISuggestedProps> = ({
-  searchString
+  searchString,
+  selectedCategory
 }: ISuggestedProps) => {
   const {
     fetchMealsByFirstLetter,
+    fetchMealsByCategory,
+    fetchMealByName,
     suggestRecipes,
     errorMessage,
     actionExecuting
   } = useDataApi();
   const [recipes, setRecipes] = useState<IRecipeInfo[]>(new Array());
   const getSuggestedRecipes = async () => {
+    console.log("get---");
     await fetchMealsByFirstLetter(searchString);
+  };
+  const getSuggestedRecipesByCategory = async () => {
+    await fetchMealByName(selectedCategory);
   };
 
   const showRecipe = (recipe: IRecipeInfo) => {};
   //   useEffect(() => {
   //     console.log(suggestRecipes);
-  //     if (suggestRecipes.length > 0) {
-  //       const formedRecipes = suggestRecipes?.map((meal) => {
-  //         return {
-  //           id: meal.idMeal,
-  //           name: meal.strMeal,
-  //           image: meal.strMealThumb,
-  //           tags: new Array(meal.strTags),
-  //           duration: "2h 30m",
-  //           expertLevel: ExperienceLevel.ADVANCE
-  //         };
-  //       });
-  //       setRecipes([...formedRecipes]);
-  //     }
+  // if (suggestRecipes.length > 0) {
+  //   const formedRecipes = suggestRecipes?.map((meal) => {
+  //     return {
+  //       id: meal.idMeal,
+  //       name: meal.strMeal,
+  //       image: meal.strMealThumb,
+  //       tags: new Array(meal.strTags),
+  //       duration: "2h 30m",
+  //       expertLevel: ExperienceLevel.ADVANCE
+  //     };
+  //   });
+  //   setRecipes([...formedRecipes]);
+  // }
   //   }, [suggestRecipes]);
 
   useEffect(() => {
-    getSuggestedRecipes();
+    console.log("suggested recipe", suggestRecipes);
+    if (suggestRecipes.length > 0) {
+      const formedRecipes = suggestRecipes?.map((meal) => {
+        return {
+          id: meal.idMeal,
+          name: meal.strMeal,
+          image: meal.strMealThumb,
+          tags: new Array(meal.strTags),
+          duration: "2h 30m",
+          expertLevel: ExperienceLevel.ADVANCE
+        };
+      });
+      setRecipes([...formedRecipes]);
+    }
+  }, [suggestRecipes]);
+  useEffect(() => {
+    if (!!selectedCategory) getSuggestedRecipesByCategory();
+  }, [selectedCategory]);
+  useEffect(() => {
+    if (!!searchString) getSuggestedRecipes();
   }, [searchString]);
+
   if (errorMessage) {
     return <div>error</div>;
   }
@@ -51,20 +79,22 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }
   return (
     <>
-      {!searchString && <div>start writing</div>}
-      {!actionExecuting && recipes && (
-        <Grid container spacing={2}>
-          {recipes &&
-            recipes.map((recipe) => (
-              <Grid item xs={12} md={6}>
-                <RecipeInfoCard
-                  recipe={recipe}
-                  onSelect={() => showRecipe(recipe)}
-                />
-              </Grid>
-            ))}
-        </Grid>
-      )}
+      {!searchString && !selectedCategory && <div>start writing</div>}
+      {!actionExecuting &&
+        (!!searchString || !!selectedCategory) &&
+        recipes && (
+          <Grid container spacing={2}>
+            {recipes &&
+              recipes.map((recipe) => (
+                <Grid item xs={12} md={6}>
+                  <RecipeInfoCard
+                    recipe={recipe}
+                    onSelect={() => showRecipe(recipe)}
+                  />
+                </Grid>
+              ))}
+          </Grid>
+        )}
     </>
   );
 };
