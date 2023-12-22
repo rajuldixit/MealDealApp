@@ -39,6 +39,7 @@ const CategoriesList = () => {
                   key={recipe.idCategory}
                   name={recipe.strCategory}
                   strThumb={recipe.strCategoryThumb}
+                  strCategoryDescription={recipe.strCategoryDescription}
                 />
               </Grid>
             ))}
