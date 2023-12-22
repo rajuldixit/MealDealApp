@@ -1,56 +1,56 @@
 import React, { useEffect, useState } from "react";
 import useDataApi from "../../hooks/useDataApi";
-import { ExperienceLevel, IRecipeInfo } from "../../utils/types";
+import {
+  ExperienceLevel,
+  IBriefRecipeInfo,
+  IRecipeInfo
+} from "../../utils/types";
 import { Grid } from "@mui/material";
 import RecipeInfoCard from "../Cards/recipeInfoCard";
+import BriefInfoCard from "../Cards/briefInfoCard";
 
 interface ISuggestedProps {
   searchString: string;
   selectedCategory: string;
+  selectedIngredient: string;
+  selectedArea: string;
 }
 
 const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   searchString,
-  selectedCategory
+  selectedCategory,
+  selectedIngredient,
+  selectedArea
 }: ISuggestedProps) => {
   const {
     fetchMealsByFirstLetter,
-    fetchMealsByCategory,
+    fetchMealsByArea,
     fetchMealByName,
+    mealByArea,
     suggestRecipes,
     errorMessage,
     actionExecuting
   } = useDataApi();
   const [recipes, setRecipes] = useState<IRecipeInfo[]>(new Array());
+  const [briefRecipe, setBriefRecipe] = useState<IBriefRecipeInfo[]>(
+    new Array()
+  );
   const getSuggestedRecipes = async () => {
-    console.log("get---");
     await fetchMealsByFirstLetter(searchString);
   };
-  const getSuggestedRecipesByCategory = async () => {
-    await fetchMealByName(selectedCategory);
+  const getSuggestedRecipesByCategoryOrIngredient = async (
+    searchStr: string
+  ) => {
+    await fetchMealByName(searchStr);
+  };
+
+  const getMealsByArea = async () => {
+    await fetchMealsByArea(selectedArea);
   };
 
   const showRecipe = (recipe: IRecipeInfo) => {};
-  //   useEffect(() => {
-  //     console.log(suggestRecipes);
-  // if (suggestRecipes.length > 0) {
-  //   const formedRecipes = suggestRecipes?.map((meal) => {
-  //     return {
-  //       id: meal.idMeal,
-  //       name: meal.strMeal,
-  //       image: meal.strMealThumb,
-  //       tags: new Array(meal.strTags),
-  //       duration: "2h 30m",
-  //       expertLevel: ExperienceLevel.ADVANCE
-  //     };
-  //   });
-  //   setRecipes([...formedRecipes]);
-  // }
-  //   }, [suggestRecipes]);
-
   useEffect(() => {
-    console.log("suggested recipe", suggestRecipes);
-    if (suggestRecipes.length > 0) {
+    if (suggestRecipes && suggestRecipes.length > 0) {
       const formedRecipes = suggestRecipes?.map((meal) => {
         return {
           id: meal.idMeal,
@@ -62,14 +62,30 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
         };
       });
       setRecipes([...formedRecipes]);
+    } else {
+      setRecipes(new Array());
     }
   }, [suggestRecipes]);
+
   useEffect(() => {
-    if (!!selectedCategory) getSuggestedRecipesByCategory();
+    if (mealByArea && mealByArea.length > 0) setBriefRecipe([...mealByArea]);
+  }, [mealByArea]);
+
+  useEffect(() => {
+    if (!!selectedArea) getMealsByArea();
+  }, [selectedArea]);
+  useEffect(() => {
+    if (!!selectedCategory)
+      getSuggestedRecipesByCategoryOrIngredient(selectedCategory);
   }, [selectedCategory]);
   useEffect(() => {
     if (!!searchString) getSuggestedRecipes();
   }, [searchString]);
+
+  useEffect(() => {
+    if (!!selectedIngredient)
+      getSuggestedRecipesByCategoryOrIngredient(selectedIngredient);
+  }, [selectedIngredient]);
 
   if (errorMessage) {
     return <div>error</div>;
@@ -79,9 +95,14 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }
   return (
     <>
-      {!searchString && !selectedCategory && <div>start writing</div>}
+      {!actionExecuting && (recipes.length == 0 || briefRecipe.length == 0) && (
+        <div>no recipe found</div>
+      )}
+      {!searchString && !selectedCategory && !selectedIngredient && (
+        <div>start writing</div>
+      )}
       {!actionExecuting &&
-        (!!searchString || !!selectedCategory) &&
+        (!!searchString || !!selectedCategory || !!selectedIngredient) &&
         recipes && (
           <Grid container spacing={2}>
             {recipes &&
@@ -91,6 +112,21 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
                     recipe={recipe}
                     onSelect={() => showRecipe(recipe)}
                   />
+                </Grid>
+              ))}
+          </Grid>
+        )}
+      {!actionExecuting &&
+        !searchString &&
+        !selectedCategory &&
+        !selectedIngredient &&
+        !!selectedArea &&
+        briefRecipe && (
+          <Grid container spacing={2}>
+            {briefRecipe &&
+              briefRecipe.map((recipe: IBriefRecipeInfo) => (
+                <Grid item xs={6} sm={4} md={3}>
+                  <BriefInfoCard recipe={recipe} />
                 </Grid>
               ))}
           </Grid>

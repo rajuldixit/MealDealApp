@@ -24,10 +24,6 @@ const CategoriesList: React.FC<ICategoryProps> = ({
     await fetchCategories();
   };
 
-  const selectedItem = (e: any) => {
-    console.log(e);
-  };
-
   useEffect(() => {
     getCategories();
   }, []);

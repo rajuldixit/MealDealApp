@@ -14,5 +14,6 @@ export const urls = {
   RANDOMMEAL: "random.php",
   MEALBYID: "lookup.php?i=",
   SEARCHBYFIRSTLETTER: "search.php?f=",
-  SEARCHBYNAME: "search.php?s="
+  SEARCHBYNAME: "search.php?s=",
+  FILTERBYAREA: "filter.php?a="
 };

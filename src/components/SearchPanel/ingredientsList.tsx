@@ -7,7 +7,13 @@ interface IingredientTypes {
   strIngredient: string;
 }
 
-const IngredientsList = () => {
+type IingredientsProps = {
+  selectedIngredient: (arg: string) => void;
+};
+
+const IngredientsList: React.FC<IingredientsProps> = ({
+  selectedIngredient
+}: IingredientsProps) => {
   const { fetchIngredients, ingredients, errorMessage, actionExecuting } =
     useDataApi();
   const getIningredients = async () => {
@@ -32,7 +38,12 @@ const IngredientsList = () => {
         <Grid container spacing={2}>
           {ingredients &&
             ingredients.map((ingredient: IingredientTypes) => (
-              <Grid item xs={3} sm={2}>
+              <Grid
+                item
+                xs={3}
+                sm={2}
+                onClick={() => selectedIngredient(ingredient.strIngredient)}
+              >
                 <InfoChip tag={ingredient.strIngredient} />
               </Grid>
             ))}

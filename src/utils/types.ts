@@ -4,6 +4,12 @@ export interface IButtonType {
   onClick: () => void;
 }
 
+export interface IBriefRecipeInfo {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+}
+
 export interface IRecipeInfo {
   id: string;
   name: string;

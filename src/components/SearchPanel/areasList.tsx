@@ -7,7 +7,12 @@ import InfoChip from "../Chips/infoChip";
 interface IAreaType {
   strArea: string;
 }
-const AreasList = () => {
+
+type IAreaProps = {
+  selectedArea: (arg: string) => void;
+};
+
+const AreasList: React.FC<IAreaProps> = ({ selectedArea }: IAreaProps) => {
   const { fetchAreas, areas, errorMessage, actionExecuting } = useDataApi();
   const getAreas = async () => {
     await fetchAreas();
@@ -31,7 +36,12 @@ const AreasList = () => {
         <Grid container spacing={2}>
           {areas &&
             areas.map((area: IAreaType) => (
-              <Grid item xs={3} sm={2}>
+              <Grid
+                item
+                xs={3}
+                sm={2}
+                onClick={() => selectedArea(area.strArea)}
+              >
                 <InfoChip tag={area.strArea} />
               </Grid>
             ))}

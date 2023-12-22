@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import React, { useState } from "react";
-import { Category, MealsByCategory } from "../utils/types";
+import { Category, IBriefRecipeInfo, MealsByCategory } from "../utils/types";
 import { urls } from "../utils/constants";
 import fetchApi from "../lib/fetchApi";
 
@@ -18,6 +18,7 @@ const useDataApi = () => {
   const [heroBannerMeal, setHeroBannerMeal] = useState<MealsByCategory[]>(
     new Array()
   );
+  const [mealByArea, setMealByArea] = useState<IBriefRecipeInfo[]>(new Array());
   const [errorMessage, setErrorMessage] = useState("");
   const [actionExecuting, setActionExecuting] = useState<boolean>(false);
 
@@ -147,6 +148,22 @@ const useDataApi = () => {
       setActionExecuting(false);
     }
   };
+  const fetchMealsByArea = async (name: string) => {
+    setActionExecuting(true);
+    try {
+      await fetchApi(`${base_url}${urls.FILTERBYAREA}${name}`).then(
+        (resp: any) => {
+          setMealByArea(resp["data"]["meals"]);
+        }
+      );
+    } catch (err) {
+      const error = err as AxiosError;
+      const errorData = error?.response?.data || "error";
+      setErrorMessage(errorData as string);
+    } finally {
+      setActionExecuting(false);
+    }
+  };
 
   return {
     fetchMealById,
@@ -157,6 +174,8 @@ const useDataApi = () => {
     fetchIngredients,
     fetchMealsByFirstLetter,
     fetchMealByName,
+    fetchMealsByArea,
+    mealByArea,
     suggestRecipes,
     ingredients,
     areas,

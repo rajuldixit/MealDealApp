@@ -44,6 +44,8 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const [searchString, setSearchString] = useState("");
   const [type, setType] = useState(OPTIONS.RECIPE);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [selectedArea, setSelectedArea] = useState("");
   const handleClose = () => {
     // onClose(selectedValue);
   };
@@ -63,17 +65,20 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     setType(OPTIONS.RECIPE);
   };
 
-  // const onSelectArea = (category: string) => {
-  //   setSelectedCategory((prev) => category);
-  //   setSearchString("");
-  //   setType(OPTIONS.RECIPE);
-  // };
+  const onSelectArea = (area: string) => {
+    setSelectedArea(area);
+    setSelectedIngredient("");
+    setSelectedCategory("");
+    setSearchString("");
+    setType(OPTIONS.RECIPE);
+  };
 
-  // const onSelectIngredients = (str: string) => {
-  //   setSelectedCategory("");
-  //   setSearchString(str);
-  //   setType(OPTIONS.RECIPE);
-  // };
+  const onSelectIngredient = (str: string) => {
+    setSelectedIngredient(str);
+    setSelectedCategory("");
+    setSearchString("");
+    setType(OPTIONS.RECIPE);
+  };
 
   return (
     <Dialog
@@ -143,12 +148,16 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                   <SuggestedRecipes
                     searchString={searchString}
                     selectedCategory={selectedCategory}
+                    selectedIngredient={selectedIngredient}
+                    selectedArea={selectedArea}
                   />
                 </Box>
               )}
               {type === OPTIONS.AREAS && (
                 <Box>
-                  <AreasList />
+                  <AreasList
+                    selectedArea={(area: string) => onSelectArea(area)}
+                  />
                 </Box>
               )}
               {type === OPTIONS.CATEGORY && (
@@ -162,7 +171,11 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
               )}
               {type === OPTIONS.INGREDIENTS && (
                 <Box>
-                  <IngredientsList />
+                  <IngredientsList
+                    selectedIngredient={(ingredient: string) =>
+                      onSelectIngredient(ingredient)
+                    }
+                  />
                 </Box>
               )}
             </Stack>
