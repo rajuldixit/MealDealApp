@@ -17,9 +17,7 @@ const CategoriesList = () => {
   const getCategories = async () => {
     await fetchCategories();
   };
-  useEffect(() => {
-    console.log(categories);
-  }, [categories]);
+
   useEffect(() => {
     getCategories();
   }, []);

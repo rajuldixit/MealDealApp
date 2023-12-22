@@ -7,10 +7,11 @@ import fetchApi from "../lib/fetchApi";
 const useDataApi = () => {
   const base_url =
     process.env.BASE_URL || "https://www.themealdb.com/api/json/v1/1/";
-  const [ingredients, setIngredients] = useState();
+  const [ingredients, setIngredients] = useState(new Array());
   const [categories, setCategories] = useState<Category[]>(new Array());
-  const [areas, setAreas] = useState();
+  const [areas, setAreas] = useState(new Array());
   const [randomMeals, setRandomMeals] = useState(new Array());
+  const [suggestRecipes, setSuggestedRecipes] = useState(new Array());
   const [mealDetails, setMealDetails] = useState();
   const [heroBannerMeal, setHeroBannerMeal] = useState<MealsByCategory[]>(
     new Array()
@@ -22,7 +23,7 @@ const useDataApi = () => {
     setActionExecuting(true);
     try {
       await fetchApi(`${base_url}${urls.AREAS}`).then((resp: any) => {
-        setAreas(resp["meals"]);
+        setAreas(resp["data"]["meals"]);
       });
     } catch (err) {
       const error = err as AxiosError;
@@ -36,7 +37,7 @@ const useDataApi = () => {
     setActionExecuting(true);
     try {
       await fetchApi(`${base_url}${urls.INGREDIENTS}`).then((resp: any) => {
-        setIngredients(resp["meals"]);
+        setIngredients(resp["data"]["meals"]);
       });
     } catch (err) {
       const error = err as AxiosError;
@@ -110,6 +111,23 @@ const useDataApi = () => {
     }
   };
 
+  const fetchMealsByFirstLetter = async (searchString: string) => {
+    setActionExecuting(true);
+    try {
+      await fetchApi(
+        `${base_url}${urls.SEARCHBYFIRSTLETTER}${searchString}`
+      ).then((resp: any) => {
+        setSuggestedRecipes(resp["data"]["meals"]);
+      });
+    } catch (err) {
+      const error = err as AxiosError;
+      const errorData = error?.response?.data || "error";
+      setErrorMessage(errorData as string);
+    } finally {
+      setActionExecuting(false);
+    }
+  };
+
   return {
     fetchMealById,
     fetchMealsByCategory,
@@ -117,6 +135,8 @@ const useDataApi = () => {
     fetchAreas,
     fetchCategories,
     fetchIngredients,
+    fetchMealsByFirstLetter,
+    suggestRecipes,
     ingredients,
     areas,
     categories,

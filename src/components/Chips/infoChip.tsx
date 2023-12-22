@@ -12,7 +12,8 @@ const InfoChip = (props: { tag: string }) => {
         borderRadius: "8px",
         margin: "0 2px 0",
         background: "#E6EEFE",
-        color: "#2851A3"
+        color: "#2851A3",
+        cursor: "pointer"
       }}
     />
   );

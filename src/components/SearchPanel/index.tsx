@@ -19,6 +19,9 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import CategoriesList from "./categoriesList";
+import AreasList from "./areasList";
+import IngredientsList from "./ingredientsList";
+import SuggestedRecipes from "./suggestedRecipes";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
   height: "auto",
@@ -46,6 +49,7 @@ export const SearchExpandedPanel: React.FC<DialogProps> = (
   props: DialogProps
 ) => {
   const { onClose, selectedValue, open } = props;
+  const [searchString, setSearchString] = useState("");
   const [type, setType] = useState(OPTIONS.RECIPE);
   const handleClose = () => {
     // onClose(selectedValue);
@@ -83,6 +87,7 @@ export const SearchExpandedPanel: React.FC<DialogProps> = (
           id="recipe-search-bar"
           label="Search"
           placeholder="Search"
+          onChange={(e) => setSearchString(e.target.value)}
           sx={{
             width: { xs: "300px", sm: "600px", md: "800px" }
           }}
@@ -103,8 +108,8 @@ export const SearchExpandedPanel: React.FC<DialogProps> = (
               <Button onClick={() => setType(OPTIONS.CATEGORY)}>
                 Category
               </Button>
-              <Button onClick={() => setType(OPTIONS.RECIPE)}>Area</Button>
-              <Button onClick={() => setType(OPTIONS.RECIPE)}>
+              <Button onClick={() => setType(OPTIONS.AREAS)}>Area</Button>
+              <Button onClick={() => setType(OPTIONS.INGREDIENTS)}>
                 Ingredients
               </Button>
             </Stack>
@@ -117,14 +122,26 @@ export const SearchExpandedPanel: React.FC<DialogProps> = (
                 borderRadius: "4px"
               }}
             >
-              {type === OPTIONS.RECIPE && <Box>searching....</Box>}
-              {type === OPTIONS.AREAS && <Box>searching....</Box>}
+              {type === OPTIONS.RECIPE && (
+                <Box>
+                  <SuggestedRecipes searchString={searchString} />
+                </Box>
+              )}
+              {type === OPTIONS.AREAS && (
+                <Box>
+                  <AreasList />
+                </Box>
+              )}
               {type === OPTIONS.CATEGORY && (
                 <Box>
                   <CategoriesList />
                 </Box>
               )}
-              {type === OPTIONS.INGREDIENTS && <Box>searching....</Box>}
+              {type === OPTIONS.INGREDIENTS && (
+                <Box>
+                  <IngredientsList />
+                </Box>
+              )}
             </Stack>
           </Box>
         </SearchPaper>
