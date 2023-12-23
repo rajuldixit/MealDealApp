@@ -124,6 +124,7 @@ const RecipeDetails = () => {
                 <PrimaryButton
                   label={"Go to recipe"}
                   onClick={() => {}}
+                  style={{ margin: "0 8px 0" }}
                   buttonIcon={{
                     icon: <ArrowDownwardIcon />,
                     position: IButtonIconPosition.RIGHT.toString()

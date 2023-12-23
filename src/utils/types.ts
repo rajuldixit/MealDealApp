@@ -2,6 +2,8 @@ export interface IButtonType {
   label: string;
   buttonIcon?: { icon: JSX.Element; position: string };
   onClick: () => void;
+  color?: string;
+  style?: { margin: string };
 }
 
 export interface IBriefRecipeInfo {

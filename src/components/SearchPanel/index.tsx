@@ -24,7 +24,7 @@ const SearchPanel = () => {
         placeholder="Search"
         onClick={handleClickOpen}
         sx={{
-          width: 200
+          width: { xs: "100%", sm: "200px" }
         }}
         InputProps={{
           endAdornment: (

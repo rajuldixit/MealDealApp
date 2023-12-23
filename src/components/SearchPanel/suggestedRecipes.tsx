@@ -59,7 +59,7 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
     if (suggestRecipes && suggestRecipes.length > 0) {
       dispatch({
         type: Types.SaveSuggestedRecipes,
-        payload: { ...initialState, moreRecipes: [...suggestRecipes] }
+        payload: { ...initialState, moreRecipes: suggestRecipes }
       });
       setRecipes([...suggestRecipes]);
     } else {

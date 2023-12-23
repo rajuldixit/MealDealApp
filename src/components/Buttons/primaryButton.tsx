@@ -14,10 +14,15 @@ const ColorContainedButton = styled(Button)<ButtonProps>(({ theme }) => ({
 const PrimaryButton: React.FC<IButtonType> = ({
   label,
   onClick,
-  buttonIcon
+  buttonIcon,
+  style = { margin: "0" }
 }) => {
   return (
-    <ColorContainedButton variant="contained" onClick={onClick}>
+    <ColorContainedButton
+      variant="contained"
+      onClick={onClick}
+      sx={{ margin: style.margin }}
+    >
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
         cloneElement(buttonIcon.icon, { "stroke-width": 1 })}
