@@ -46,10 +46,10 @@ const NewRecipes = () => {
           }}
         />
       </Stack>
-      {recipes && (
+      {appState.randomRecipes && (
         <Grid container spacing={2}>
-          {recipes &&
-            recipes.map((recipe) => (
+          {appState.randomRecipes &&
+            appState.randomRecipes.slice(0, 4).map((recipe) => (
               <Grid item xs={12} md={6}>
                 <RecipeInfoCard
                   recipe={recipe}

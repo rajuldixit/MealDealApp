@@ -8,7 +8,8 @@ import {
 import { Grid } from "@mui/material";
 import RecipeInfoCard from "../Cards/recipeInfoCard";
 import BriefInfoCard from "../Cards/briefInfoCard";
-import { BriefRecipeInfo } from "../../context/AppReducer";
+import { BriefRecipeInfo, Types, initialState } from "../../context/AppReducer";
+import { useAppDispatch } from "../../context/AppContext";
 
 interface ISuggestedProps {
   searchString: string;
@@ -38,6 +39,7 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   const [briefRecipe, setBriefRecipe] = useState<IBriefRecipeInfo[]>(
     new Array()
   );
+  const dispatch = useAppDispatch();
 
   const getSuggestedRecipes = async () => {
     await fetchMealsByFirstLetter(searchString);
@@ -55,16 +57,11 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   const showRecipe = (recipe: BriefRecipeInfo) => {};
   useEffect(() => {
     if (suggestRecipes && suggestRecipes.length > 0) {
-      const formedRecipes = suggestRecipes?.map((meal) => {
-        return {
-          idMeal: meal.idMeal,
-          strMeal: meal.strMeal,
-          strMealThumb: meal.strMealThumb,
-          strTags: meal.strTags,
-          strCategory: meal.strCategory
-        };
+      dispatch({
+        type: Types.SaveSuggestedRecipes,
+        payload: { ...initialState, moreRecipes: [...suggestRecipes] }
       });
-      setRecipes([...formedRecipes]);
+      setRecipes([...suggestRecipes]);
     } else {
       setRecipes(new Array());
     }

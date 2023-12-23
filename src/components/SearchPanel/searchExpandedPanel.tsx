@@ -17,6 +17,8 @@ import IngredientsList from "./ingredientsList";
 import SuggestedRecipes from "./suggestedRecipes";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../context/AppContext";
+import { Types, initialState } from "../../context/AppReducer";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
   height: "auto",
@@ -48,6 +50,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const [selectedArea, setSelectedArea] = useState("");
   const [inputValue, setInputValue] = useState();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const resetAndClose = () => {
     setSelectedArea("");
@@ -67,6 +70,9 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const onSelectedCategory = (category: string) => {
     setSelectedCategory((prev) => category);
     setSearchString("");
+    setSelectedIngredient("");
+    setSelectedArea("");
+    onSettingsearchTagOption(OPTIONS.CATEGORY);
     setType(OPTIONS.RECIPE);
   };
 
@@ -77,6 +83,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
       setSelectedCategory("");
       setSelectedIngredient("");
       setSearchString(str.target.value);
+      onSettingsearchTagOption("");
       setType(OPTIONS.RECIPE);
     }
   };
@@ -85,6 +92,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     setSelectedCategory("");
     setSelectedIngredient("");
     setSearchString(str);
+    onSettingsearchTagOption("");
     setType(OPTIONS.RECIPE);
   };
 
@@ -93,6 +101,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     setSelectedIngredient("");
     setSelectedCategory("");
     setSearchString("");
+    onSettingsearchTagOption(OPTIONS.AREAS);
     setType(OPTIONS.RECIPE);
   };
 
@@ -100,9 +109,19 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     setSelectedIngredient(str);
     setSelectedCategory("");
     setSearchString("");
+    onSettingsearchTagOption(OPTIONS.INGREDIENTS);
     setType(OPTIONS.RECIPE);
   };
 
+  const onSettingsearchTagOption = (option: string) => {
+    dispatch({
+      type: Types.SaveRandomRecipes,
+      payload: {
+        ...initialState,
+        searchTagOption: option
+      }
+    });
+  };
   return (
     <Dialog
       open={open}
