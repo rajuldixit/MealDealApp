@@ -16,6 +16,7 @@ import CategoriesList from "./categoriesList";
 import IngredientsList from "./ingredientsList";
 import SuggestedRecipes from "./suggestedRecipes";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
   height: "auto",
@@ -29,7 +30,6 @@ const SearchPaper = styled(Paper)(({ theme }) => ({
 interface DialogProps {
   onClose: () => void;
   open: boolean;
-  selectedValue: string;
 }
 
 enum OPTIONS {
@@ -40,18 +40,29 @@ enum OPTIONS {
 }
 
 const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
   const [searchString, setSearchString] = useState("");
   const [type, setType] = useState(OPTIONS.RECIPE);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
+  const [inputValue, setInputValue] = useState();
+  const navigate = useNavigate();
+
+  const resetAndClose = () => {
+    setSelectedArea("");
+    setSelectedCategory("");
+    setSelectedIngredient("");
+    setSearchString("");
+    onClose();
+  };
   const handleClose = () => {
-    // onClose(selectedValue);
+    resetAndClose();
   };
 
   const handleListItemClick = (value: string) => {
-    // onClose(value);
+    resetAndClose();
+    navigate(`/mealDetails/${value}`);
   };
   const onSelectedCategory = (category: string) => {
     setSelectedCategory((prev) => category);
@@ -59,8 +70,20 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     setType(OPTIONS.RECIPE);
   };
 
+  const onEnteringSearchWord = (str: any) => {
+    console.log(str.key);
+    if (str.keyCode == 13) {
+      setSelectedArea("");
+      setSelectedCategory("");
+      setSelectedIngredient("");
+      setSearchString(str.target.value);
+      setType(OPTIONS.RECIPE);
+    }
+  };
   const onEnteringSearchStr = (str: string) => {
+    setSelectedArea("");
     setSelectedCategory("");
+    setSelectedIngredient("");
     setSearchString(str);
     setType(OPTIONS.RECIPE);
   };
@@ -107,7 +130,9 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
         <TextField
           id="recipe-search-bar"
           label="Search"
+          value={inputValue}
           placeholder="Search"
+          onKeyDown={(e) => onEnteringSearchWord(e)}
           onChange={(e) => onEnteringSearchStr(e.target.value)}
           sx={{
             width: { xs: "300px", sm: "600px", md: "800px" }
@@ -150,6 +175,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                     selectedCategory={selectedCategory}
                     selectedIngredient={selectedIngredient}
                     selectedArea={selectedArea}
+                    selectedRecipe={handleListItemClick}
                   />
                 </Box>
               )}

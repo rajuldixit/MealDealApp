@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchExpandedPanel from "./searchExpandedPanel";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { useAppState } from "../../context/AppContext";
 
 const SearchPanel = () => {
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
+
+  const appState = useAppState();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -13,6 +15,7 @@ const SearchPanel = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <TextField
@@ -33,11 +36,7 @@ const SearchPanel = () => {
           )
         }}
       />
-      <SearchExpandedPanel
-        selectedValue={selectedValue}
-        open={open}
-        onClose={handleClose}
-      />
+      <SearchExpandedPanel open={open} onClose={handleClose} />
     </>
   );
 };

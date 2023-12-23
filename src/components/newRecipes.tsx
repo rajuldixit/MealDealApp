@@ -11,41 +11,20 @@ import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useDataApi from "../hooks/useDataApi";
+import { useAppState } from "../context/AppContext";
+import { BriefRecipeInfo } from "../context/AppReducer";
 
 const NewRecipes = () => {
-  const { fetchRandomMeal, randomMeals, errorMessage, actionExecuting } =
-    useDataApi();
-  const [recipes, setRecipes] = useState<IRecipeInfo[]>(new Array());
+  const appState = useAppState();
+  const [recipes, setRecipes] = useState<BriefRecipeInfo[]>(new Array());
   const navigate = useNavigate();
-  const showRecipe = (recipe: IRecipeInfo) => {
-    navigate(`/mealDetails/${recipe.id}`);
+  const showRecipe = (recipe: BriefRecipeInfo) => {
+    navigate(`/mealDetails/${recipe.idMeal}`);
   };
-  const getNewRecipes = async () => {
-    await fetchRandomMeal();
-  };
-  useEffect(() => {
-    const formedRecipes = randomMeals.map((meal) => {
-      return {
-        id: meal.idMeal,
-        name: meal.strMeal,
-        image: meal.strMealThumb,
-        tags: new Array(meal.strTags),
-        duration: "2h 30m",
-        expertLevel: ExperienceLevel.ADVANCE
-      };
-    });
-    setRecipes([...formedRecipes]);
-  }, [randomMeals]);
-  useEffect(() => {
-    getNewRecipes();
-  }, []);
 
-  if (errorMessage) {
-    return <div>Error {errorMessage}</div>;
-  }
-  if (actionExecuting) {
-    return <div>loading</div>;
-  }
+  useEffect(() => {
+    setRecipes([...appState.randomRecipes]);
+  }, [appState]);
 
   return (
     <>
@@ -67,7 +46,7 @@ const NewRecipes = () => {
           }}
         />
       </Stack>
-      {!actionExecuting && recipes && (
+      {recipes && (
         <Grid container spacing={2}>
           {recipes &&
             recipes.map((recipe) => (

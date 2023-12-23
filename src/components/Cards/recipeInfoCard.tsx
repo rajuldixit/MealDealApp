@@ -13,6 +13,7 @@ import {
 import InfoChip from "../Chips/infoChip";
 import ClockIcon from "../../assets/icons/clock.svg";
 import GraphIcon from "../../assets/icons/graph.svg";
+import { BriefRecipeInfo } from "../../context/AppReducer";
 
 const TitleTypography = styled(Typography)(({ theme }) => ({
   textOverflow: "ellipsis",
@@ -38,12 +39,12 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
   }
 }));
 interface IRecipe {
-  recipe: IRecipeInfo;
+  recipe: BriefRecipeInfo;
   onSelect: () => void;
 }
 
 const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
-  const { id, image, duration, tags, name, expertLevel } = props.recipe;
+  const { idMeal, strCategory, strMeal, strMealThumb, strTags } = props.recipe;
   return (
     <Card
       sx={{
@@ -58,12 +59,12 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
       <CardMedia
         component="img"
         sx={{ width: 151 }}
-        image={image}
+        image={strMealThumb}
         alt="recipe-image"
       />
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <TitleTypography>{name}</TitleTypography>
+          <TitleTypography>{strMeal}</TitleTypography>
           <Box sx={{ display: "flex", alignItems: "center", pb: 1, pt: 0.5 }}>
             <Stack flexDirection={"row"} mr={1}>
               <img src={ClockIcon} />
@@ -73,7 +74,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >
-                {duration}
+                {"2h 15m"}
               </Typography>
             </Stack>
             <Stack flexDirection={"row"}>
@@ -84,13 +85,14 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >
-                {expertLevel}
+                {"Advanced"}
               </Typography>
             </Stack>
           </Box>
         </CardContent>
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 2 }}>
-          {tags && tags.map((tag) => <InfoChip tag={tag} />)}
+          {strTags &&
+            strTags.split(",").map((tag: string) => <InfoChip tag={tag} />)}
         </Box>
       </Box>
     </Card>

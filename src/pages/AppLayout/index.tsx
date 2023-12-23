@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../components/NavPanel/navbar";
 import Header from "../../components/Header/header";
 import { Container, Stack } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { AppContextProvider } from "../../context/AppContext";
+import { Types } from "../../context/AppReducer";
 
 const AppLayout = () => {
   return (
@@ -37,9 +39,10 @@ const AppLayout = () => {
             boxSizing: "border-box"
           }}
         >
-          <Header />
-
-          <Outlet />
+          <AppContextProvider>
+            <Header />
+            <Outlet />
+          </AppContextProvider>
         </Stack>
       </Container>
     </>

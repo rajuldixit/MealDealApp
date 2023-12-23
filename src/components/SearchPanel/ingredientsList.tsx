@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import useDataApi from "../../hooks/useDataApi";
 import InfoChip from "../Chips/infoChip";
+import { useAppState } from "../../context/AppContext";
 
 interface IingredientTypes {
   strIngredient: string;
@@ -14,30 +15,14 @@ type IingredientsProps = {
 const IngredientsList: React.FC<IingredientsProps> = ({
   selectedIngredient
 }: IingredientsProps) => {
-  const { fetchIngredients, ingredients, errorMessage, actionExecuting } =
-    useDataApi();
-  const getIningredients = async () => {
-    await fetchIngredients();
-  };
-  useEffect(() => {
-    console.log(ingredients);
-  }, [ingredients]);
-  useEffect(() => {
-    getIningredients();
-  }, []);
+  const appState = useAppState();
 
-  if (errorMessage) {
-    return <div>error</div>;
-  }
-  if (actionExecuting) {
-    return <div>loading</div>;
-  }
   return (
     <>
-      {!actionExecuting && !!ingredients && (
+      {!!appState.ingredients && (
         <Grid container spacing={2}>
-          {ingredients &&
-            ingredients.map((ingredient: IingredientTypes) => (
+          {appState.ingredients &&
+            appState.ingredients.map((ingredient: IingredientTypes) => (
               <Grid
                 item
                 xs={3}

@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import useDataApi from "../../hooks/useDataApi";
 import { Grid } from "@mui/material";
 import CategoryInfoCard from "../Cards/categoryInfoCard";
-
-interface ICategoryOptions {
-  idCategory: string;
-  strCategory: string;
-  strCategoryDescription: string;
-  strCategoryThumb: string;
-}
+import { useAppState } from "../../context/AppContext";
 
 interface ICategoryProps {
   selectedCategory: (arg: string) => void;
@@ -17,41 +11,26 @@ interface ICategoryProps {
 const CategoriesList: React.FC<ICategoryProps> = ({
   selectedCategory
 }: ICategoryProps) => {
-  const { fetchCategories, categories, errorMessage, actionExecuting } =
-    useDataApi();
+  const appState = useAppState();
 
-  const getCategories = async () => {
-    await fetchCategories();
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
-  if (errorMessage) {
-    return <div>error</div>;
-  }
-  if (actionExecuting) {
-    return <div>loading</div>;
-  }
   return (
     <>
-      {!actionExecuting && !!categories && (
+      {!!appState.categories && (
         <Grid container spacing={2}>
-          {categories &&
-            categories.map((recipe) => (
+          {appState.categories &&
+            appState.categories.map((category) => (
               <Grid
                 item
                 xs={6}
                 sm={4}
                 md={3}
-                onClick={() => selectedCategory(recipe.strCategory)}
+                onClick={() => selectedCategory(category.strCategory)}
               >
                 <CategoryInfoCard
-                  key={recipe.idCategory}
-                  name={recipe.strCategory}
-                  strThumb={recipe.strCategoryThumb}
-                  strCategoryDescription={recipe.strCategoryDescription}
+                  key={category.idCategory}
+                  name={category.strCategory}
+                  strThumb={category.strCategoryThumb}
+                  strCategoryDescription={category.strCategoryDescription}
                 />
               </Grid>
             ))}

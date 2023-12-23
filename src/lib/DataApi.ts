@@ -50,7 +50,6 @@ const useDataApi = () => {
     setActionExecuting(true);
     try {
       await axios.get(`${base_url}categories.php`).then((resp: any) => {
-        console.log("resp :", resp);
         setCategories(resp["data"]["categories"]);
       });
     } catch (err) {

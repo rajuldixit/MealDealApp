@@ -8,19 +8,22 @@ import {
 import { Grid } from "@mui/material";
 import RecipeInfoCard from "../Cards/recipeInfoCard";
 import BriefInfoCard from "../Cards/briefInfoCard";
+import { BriefRecipeInfo } from "../../context/AppReducer";
 
 interface ISuggestedProps {
   searchString: string;
   selectedCategory: string;
   selectedIngredient: string;
   selectedArea: string;
+  selectedRecipe: (arg: string) => void;
 }
 
 const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   searchString,
   selectedCategory,
   selectedIngredient,
-  selectedArea
+  selectedArea,
+  selectedRecipe
 }: ISuggestedProps) => {
   const {
     fetchMealsByFirstLetter,
@@ -31,10 +34,11 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
     errorMessage,
     actionExecuting
   } = useDataApi();
-  const [recipes, setRecipes] = useState<IRecipeInfo[]>(new Array());
+  const [recipes, setRecipes] = useState<BriefRecipeInfo[]>(new Array());
   const [briefRecipe, setBriefRecipe] = useState<IBriefRecipeInfo[]>(
     new Array()
   );
+
   const getSuggestedRecipes = async () => {
     await fetchMealsByFirstLetter(searchString);
   };
@@ -48,17 +52,16 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
     await fetchMealsByArea(selectedArea);
   };
 
-  const showRecipe = (recipe: IRecipeInfo) => {};
+  const showRecipe = (recipe: BriefRecipeInfo) => {};
   useEffect(() => {
     if (suggestRecipes && suggestRecipes.length > 0) {
       const formedRecipes = suggestRecipes?.map((meal) => {
         return {
-          id: meal.idMeal,
-          name: meal.strMeal,
-          image: meal.strMealThumb,
-          tags: new Array(meal.strTags),
-          duration: "2h 30m",
-          expertLevel: ExperienceLevel.ADVANCE
+          idMeal: meal.idMeal,
+          strMeal: meal.strMeal,
+          strMealThumb: meal.strMealThumb,
+          strTags: meal.strTags,
+          strCategory: meal.strCategory
         };
       });
       setRecipes([...formedRecipes]);
@@ -79,7 +82,9 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
       getSuggestedRecipesByCategoryOrIngredient(selectedCategory);
   }, [selectedCategory]);
   useEffect(() => {
-    if (!!searchString) getSuggestedRecipes();
+    !!searchString && searchString.length == 1
+      ? getSuggestedRecipes()
+      : getSuggestedRecipesByCategoryOrIngredient(searchString);
   }, [searchString]);
 
   useEffect(() => {
@@ -102,12 +107,18 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
         <div>start writing</div>
       )}
       {!actionExecuting &&
+        !selectedArea &&
         (!!searchString || !!selectedCategory || !!selectedIngredient) &&
         recipes && (
           <Grid container spacing={2}>
             {recipes &&
               recipes.map((recipe) => (
-                <Grid item xs={12} md={6}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  onClick={() => selectedRecipe(recipe.idMeal)}
+                >
                   <RecipeInfoCard
                     recipe={recipe}
                     onSelect={() => showRecipe(recipe)}
@@ -125,7 +136,13 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
           <Grid container spacing={2}>
             {briefRecipe &&
               briefRecipe.map((recipe: IBriefRecipeInfo) => (
-                <Grid item xs={6} sm={4} md={3}>
+                <Grid
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
+                  onClick={() => selectedRecipe(recipe.idMeal)}
+                >
                   <BriefInfoCard recipe={recipe} />
                 </Grid>
               ))}

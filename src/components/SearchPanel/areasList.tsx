@@ -3,6 +3,7 @@ import useDataApi from "../../hooks/useDataApi";
 import { Grid } from "@mui/material";
 import CategoryInfoCard from "../Cards/categoryInfoCard";
 import InfoChip from "../Chips/infoChip";
+import { useAppState } from "../../context/AppContext";
 
 interface IAreaType {
   strArea: string;
@@ -13,29 +14,16 @@ type IAreaProps = {
 };
 
 const AreasList: React.FC<IAreaProps> = ({ selectedArea }: IAreaProps) => {
-  const { fetchAreas, areas, errorMessage, actionExecuting } = useDataApi();
-  const getAreas = async () => {
-    await fetchAreas();
-  };
-  useEffect(() => {
-    console.log(areas);
-  }, [areas]);
-  useEffect(() => {
-    getAreas();
-  }, []);
+  const appState = useAppState();
 
-  if (errorMessage) {
-    return <div>error</div>;
-  }
-  if (actionExecuting) {
-    return <div>loading</div>;
-  }
+  useEffect(() => {}, [appState]);
+
   return (
     <>
-      {!actionExecuting && !!areas && (
+      {!!appState.areas && (
         <Grid container spacing={2}>
-          {areas &&
-            areas.map((area: IAreaType) => (
+          {appState.areas &&
+            appState.areas.map((area: IAreaType) => (
               <Grid
                 item
                 xs={3}

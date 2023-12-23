@@ -17,3 +17,6 @@ export const urls = {
   SEARCHBYNAME: "search.php?s=",
   FILTERBYAREA: "filter.php?a="
 };
+
+export const base_url =
+  process.env.BASE_URL || "https://www.themealdb.com/api/json/v1/1/";

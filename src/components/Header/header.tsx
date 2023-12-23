@@ -1,8 +1,26 @@
 import { Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import SearchPanel from "../SearchPanel";
+import { useAppDispatch } from "../../context/AppContext";
+import useInitialStateSetup from "../../hooks/useInitialStateSetup";
 
 const Header = () => {
+  const dispatch = useAppDispatch();
+  const {
+    saveApiResponse,
+    errorMessage,
+    actionExecuting,
+    saveRandomRecipesResponse
+  } = useInitialStateSetup();
+  useEffect(() => {
+    saveApiResponse(dispatch);
+    saveRandomRecipesResponse(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!actionExecuting && errorMessage) {
+    }
+  }, [errorMessage, actionExecuting]);
   return (
     <Stack flexDirection={"row"} justifyContent={"space-between"} mb={2} mt={4}>
       <Typography
@@ -14,6 +32,7 @@ const Header = () => {
       >
         Discover Recipes
       </Typography>
+
       <SearchPanel />
     </Stack>
   );

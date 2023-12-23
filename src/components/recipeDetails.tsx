@@ -36,7 +36,6 @@ const RecipeDetails = () => {
   };
 
   const fetchMeal = async () => {
-    console.log(typeof id);
     if (!!id) {
       await fetchMealById(parseInt(id));
     }
