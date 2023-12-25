@@ -1,6 +1,7 @@
 import { Breadcrumbs, Link, Typography } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import React from "react";
+import { useAppState } from "../context/AppContext";
 
 const handleClick = (
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -10,6 +11,8 @@ const handleClick = (
 };
 
 const Breadcrumb = () => {
+  const appState = useAppState();
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -30,7 +33,7 @@ const Breadcrumb = () => {
       Categories
     </Link>,
     <Typography key="3" color="text.primary">
-      {/* {something} */}
+      {appState.searchKey}
     </Typography>
   ];
 

@@ -16,7 +16,7 @@ export enum Types {
   SaveCategory = "SAVE_CATEGORY",
   SaveIngredients = "SAVE_INGREDIENTS",
   SaveRandomRecipes = "SAVE_RANDOM_RECIPES",
-  SaveSearchString = "SAVE_SEARCH_STRING",
+  SaveSearchKey = "SAVE_SEARCH_STRING",
   SaveSearchTagOption = "SAVE_SEARCH_TAG_OPTION",
   SaveSuggestedRecipes = "SAVE_SUGGESTED_RECIPES",
   UpdateSideNavOption = "UPDATE_SIDENAV"
@@ -52,7 +52,7 @@ export type IAppState = {
   areas: Array<Area>;
   categories: Array<Category>;
   randomRecipes: Array<BriefRecipeInfo>;
-  searchString: string;
+  searchKey: string;
   searchTagOption: string;
   moreRecipes: Array<BriefRecipeInfo>;
   activeSideNav: string;
@@ -64,7 +64,7 @@ export const initialState: IAppState = {
   areas: [],
   categories: [],
   randomRecipes: [],
-  searchString: "",
+  searchKey: "",
   searchTagOption: "",
   moreRecipes: [],
   activeSideNav: NavPanelsKeys.Home.key
@@ -82,8 +82,8 @@ export const appReducer = (state = initialState, action: IActionType) => {
       return { ...state, randomRecipes: action.payload.randomRecipes };
     case Types.SaveSearchTagOption:
       return { ...state, searchTagOption: action.payload.searchTagOption };
-    case Types.SaveSearchString:
-      return { ...state, searchString: action.payload.searchString };
+    case Types.SaveSearchKey:
+      return { ...state, searchKey: action.payload.searchKey };
     case Types.SaveSuggestedRecipes:
       return { ...state, moreRecipes: action.payload.moreRecipes };
     case Types.UpdateSideNavOption:

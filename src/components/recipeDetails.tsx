@@ -12,12 +12,16 @@ import { IButtonIconPosition } from "../utils/types";
 import useFormatRecipeDetails from "../hooks/useFormatRecipeDetails";
 import useDataApi from "../hooks/useDataApi";
 import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../context/AppContext";
+import { Types, initialState } from "../context/AppReducer";
+import { NavPanelsKeys } from "../utils/constants";
 
 const RecipeDetails = () => {
   const { id } = useParams();
   const { fetchMealById, mealDetails, errorMessage, actionExecuting } =
     useDataApi();
   const { format, recipe } = useFormatRecipeDetails();
+  const dispatch = useAppDispatch();
 
   const getFormattedRecipe = async () => {
     if (!!mealDetails) {
@@ -47,6 +51,17 @@ const RecipeDetails = () => {
   useEffect(() => {
     fetchMeal();
   }, [id]);
+  useEffect(() => {
+    if (!!recipe) {
+      dispatch({
+        type: Types.SaveSearchKey,
+        payload: {
+          ...initialState,
+          searchKey: recipe.category || ""
+        }
+      });
+    }
+  }, [recipe]);
 
   if (errorMessage) {
     return <div>Error {errorMessage}</div>;

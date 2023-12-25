@@ -27,6 +27,7 @@ const useFormatRecipeDetails = () => {
           duration: "2h 15m",
           expertLevel: ExperienceLevel.ADVANCE
         },
+        category: raw.strCategory,
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris

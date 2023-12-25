@@ -85,7 +85,6 @@ const LeftNav = () => {
   };
 
   useEffect(() => {
-    console.log("inleft", appState.activeSideNav);
     const activeSideNav = appState.activeSideNav;
     const newVal = navItems.filter((nav) => {
       if (nav.key == activeSideNav) {

@@ -40,6 +40,7 @@ export enum ExperienceLevel {
 
 export interface IRecipeDetails {
   basicDetails: IRecipeInfo;
+  category?: string;
   description: string;
   instructions: Array<string>;
   ingredients: Array<string>;
