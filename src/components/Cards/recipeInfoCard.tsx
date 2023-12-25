@@ -69,7 +69,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
             <Stack flexDirection={"row"} mr={1}>
               <img src={ClockIcon} />
               <Typography
-                variant="subtitle1"
+                fontSize={{ xs: "12px", sm: "14px" }}
                 color="text.secondary"
                 component="div"
                 sx={{ marginLeft: "4px" }}
@@ -80,7 +80,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
             <Stack flexDirection={"row"}>
               <img src={GraphIcon} />
               <Typography
-                variant="subtitle1"
+                fontSize={{ xs: "12px", sm: "14px" }}
                 color="text.secondary"
                 component="div"
                 sx={{ marginLeft: "4px" }}

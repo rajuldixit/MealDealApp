@@ -33,6 +33,7 @@ const MealDetails = () => {
       />
 
       <RecipeDetails />
+      <hr />
       <MoreRecipeOptions />
     </Box>
   );

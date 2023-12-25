@@ -6,6 +6,7 @@ import TextButton from "./Buttons/textButton";
 import RecipeInfoCard from "./Cards/recipeInfoCard";
 import { useNavigate } from "react-router-dom";
 import { BriefRecipeInfo } from "../context/AppReducer";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const MoreRecipeOptions = () => {
   const appState = useAppState();
@@ -23,16 +24,24 @@ const MoreRecipeOptions = () => {
             flexDirection={"row"}
             alignItems={"center"}
             justifyContent={"space-between"}
-            sx={{ marginTop: "48px" }}
+            sx={{ marginTop: "48px", marginBottom: "24px" }}
           >
             <Typography sx={{ typography: { xs: "h6", sm: "h5" } }}>
               More Recipes
             </Typography>
+            <TextButton
+              label={"See all recipes"}
+              onClick={() => {}}
+              buttonIcon={{
+                icon: <ArrowForwardIcon />,
+                position: IButtonIconPosition.RIGHT.toString()
+              }}
+            />
           </Stack>
           {appState.moreRecipes && (
             <Grid container spacing={2}>
               {appState.moreRecipes &&
-                appState.moreRecipes.map((recipe) => (
+                appState.moreRecipes.splice(0, 2).map((recipe) => (
                   <Grid item xs={12} md={6} key={recipe.idMeal}>
                     <RecipeInfoCard
                       recipe={recipe}
