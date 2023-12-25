@@ -37,7 +37,7 @@ const NewRecipes = () => {
         flexDirection={"row"}
         alignItems={"center"}
         justifyContent={"space-between"}
-        sx={{ marginTop: "48px" }}
+        sx={{ marginTop: "48px", marginBottom: "24px" }}
       >
         <Typography sx={{ typography: { xs: "h6", sm: "h5" } }}>
           New Recipes
