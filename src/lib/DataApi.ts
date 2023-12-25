@@ -1,8 +1,9 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { Category, MealsByCategory } from "../utils/types";
 import data from "./fetchApi";
 import { urls } from "../utils/constants";
+import fetchApi from "./fetchApi";
 
 const useDataApi = () => {
   const base_url =
@@ -35,7 +36,7 @@ const useDataApi = () => {
   const fetchIngredients = async () => {
     setActionExecuting(true);
     try {
-      await axios.get(`${base_url}list.php?i=list`).then((resp: any) => {
+      await fetchApi(`${base_url}list.php?i=list`).then((resp: any) => {
         setIngredients(resp["meals"]);
       });
     } catch (err) {
@@ -49,7 +50,7 @@ const useDataApi = () => {
   const fetchCategories = async () => {
     setActionExecuting(true);
     try {
-      await axios.get(`${base_url}categories.php`).then((resp: any) => {
+      await fetchApi(`${base_url}categories.php`).then((resp: any) => {
         setCategories(resp["data"]["categories"]);
       });
     } catch (err) {
@@ -65,7 +66,7 @@ const useDataApi = () => {
     try {
       let randomMeals = new Array();
       for (let i = 0; i < 4; i++) {
-        await axios.get(`${base_url}random.php`).then((resp: any) => {
+        await fetchApi(`${base_url}random.php`).then((resp: any) => {
           randomMeals.push(resp["meals"][0]);
         });
       }
@@ -81,11 +82,11 @@ const useDataApi = () => {
   const fetchMealsByCategory = async (category: string) => {
     setActionExecuting(true);
     try {
-      await axios
-        .get(`${base_url}filter.php?c=${category}`)
-        .then((resp: any) => {
+      await fetchApi(`${base_url}filter.php?c=${category}`).then(
+        (resp: any) => {
           setHeroBannerMeal(resp["data"]["meals"]);
-        });
+        }
+      );
     } catch (err) {
       const error = err as AxiosError;
       const errorData = error?.response?.data || "error";
@@ -97,7 +98,7 @@ const useDataApi = () => {
   const fetchMealById = async (id: string) => {
     setActionExecuting(true);
     try {
-      await axios.get(`${base_url}lookup.php?i=${id}`).then((resp: any) => {
+      await fetchApi(`${base_url}lookup.php?i=${id}`).then((resp: any) => {
         setMealDetails(resp["meals"]);
       });
     } catch (err) {
@@ -111,7 +112,7 @@ const useDataApi = () => {
   const fetchHeroBanneMeal = async (id: string) => {
     setActionExecuting(true);
     try {
-      await axios.get(`${base_url}lookup.php?i=${id}`).then((resp: any) => {
+      await fetchApi(`${base_url}lookup.php?i=${id}`).then((resp: any) => {
         setMealDetails(resp["meals"]);
       });
     } catch (err) {
