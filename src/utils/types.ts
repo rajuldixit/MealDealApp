@@ -3,7 +3,12 @@ export interface IButtonType {
   buttonIcon?: { icon: JSX.Element; position: string };
   onClick: () => void;
   color?: string;
-  style?: { margin: string };
+  style?: {
+    margin?: string;
+    fontColor?: string;
+    background?: string;
+    borderColor?: string;
+  };
 }
 
 export interface IBriefRecipeInfo {

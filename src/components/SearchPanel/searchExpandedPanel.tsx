@@ -19,6 +19,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../context/AppContext";
 import { Types, initialState } from "../../context/AppReducer";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import PublicIcon from "@mui/icons-material/Public";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import GrassIcon from "@mui/icons-material/Grass";
+import PrimaryButton from "../Buttons/primaryButton";
+import { IButtonIconPosition } from "../../utils/types";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
   height: "auto",
@@ -77,7 +83,6 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   };
 
   const onEnteringSearchWord = (str: any) => {
-    console.log(str.key);
     if (str.keyCode == 13) {
       setSelectedArea("");
       setSelectedCategory("");
@@ -168,14 +173,63 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
         <SearchPaper>
           <Box>
             <Stack flexDirection={"row"}>
-              <Button onClick={() => setType(OPTIONS.RECIPE)}>Recipe</Button>
-              <Button onClick={() => setType(OPTIONS.CATEGORY)}>
-                Category
-              </Button>
-              <Button onClick={() => setType(OPTIONS.AREAS)}>Area</Button>
-              <Button onClick={() => setType(OPTIONS.INGREDIENTS)}>
-                Ingredients
-              </Button>
+              <PrimaryButton
+                label={"Recipe"}
+                onClick={() => setType(OPTIONS.RECIPE)}
+                buttonIcon={{
+                  icon: <AutoStoriesIcon />,
+                  position: IButtonIconPosition.LEFT.toString()
+                }}
+                style={{
+                  background: type === OPTIONS.RECIPE ? "#15C421" : "#d3d3d3",
+                  borderColor: type === OPTIONS.RECIPE ? "#15C421" : "grey",
+                  fontColor: type === OPTIONS.RECIPE ? "white" : "grey",
+                  margin: "0 4px 0"
+                }}
+              />
+              <PrimaryButton
+                label={"Category"}
+                onClick={() => setType(OPTIONS.CATEGORY)}
+                buttonIcon={{
+                  icon: <TextSnippetIcon />,
+                  position: IButtonIconPosition.LEFT.toString()
+                }}
+                style={{
+                  background: type === OPTIONS.CATEGORY ? "#15C421" : "#d3d3d3",
+                  borderColor: type === OPTIONS.CATEGORY ? "#15C421" : "grey",
+                  fontColor: type === OPTIONS.CATEGORY ? "white" : "grey",
+                  margin: "0 4px 0"
+                }}
+              />
+              <PrimaryButton
+                label={"Areas"}
+                onClick={() => setType(OPTIONS.AREAS)}
+                buttonIcon={{
+                  icon: <PublicIcon />,
+                  position: IButtonIconPosition.LEFT.toString()
+                }}
+                style={{
+                  background: type === OPTIONS.AREAS ? "#15C421" : "#d3d3d3",
+                  borderColor: type === OPTIONS.AREAS ? "#15C421" : "grey",
+                  fontColor: type === OPTIONS.AREAS ? "white" : "grey",
+                  margin: "0 4px 0"
+                }}
+              />
+              <PrimaryButton
+                label={"Ingredients"}
+                onClick={() => setType(OPTIONS.INGREDIENTS)}
+                buttonIcon={{
+                  icon: <GrassIcon />,
+                  position: IButtonIconPosition.LEFT.toString()
+                }}
+                style={{
+                  background:
+                    type === OPTIONS.INGREDIENTS ? "#15C421" : "#d3d3d3",
+                  borderColor:
+                    type === OPTIONS.INGREDIENTS ? "#15C421" : "grey",
+                  fontColor: type === OPTIONS.INGREDIENTS ? "white" : "grey"
+                }}
+              />
             </Stack>
             <Stack
               sx={{
@@ -183,7 +237,8 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                 padding: "2%",
                 minHeight: "200px",
                 boxSizing: "border-box",
-                borderRadius: "4px"
+                borderRadius: "4px",
+                marginTop: "8px"
               }}
             >
               {type === OPTIONS.RECIPE && (

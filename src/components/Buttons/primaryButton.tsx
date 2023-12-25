@@ -21,7 +21,12 @@ const PrimaryButton: React.FC<IButtonType> = ({
     <ColorContainedButton
       variant="contained"
       onClick={onClick}
-      sx={{ margin: style.margin }}
+      sx={{
+        margin: style.margin,
+        background: style.background,
+        border: `2px solid ${style.borderColor}`,
+        color: style.fontColor
+      }}
     >
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
