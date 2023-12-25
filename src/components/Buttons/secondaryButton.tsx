@@ -19,14 +19,12 @@ const SecondaryButton: React.FC<IButtonType> = ({
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
         cloneElement(buttonIcon.icon, {
-          "stroke-width": 1,
           "margin-right": "4px"
         })}
       {label}
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.RIGHT.toString() &&
         cloneElement(buttonIcon.icon, {
-          "stroke-width": 1,
           "margin-left": "4px"
         })}
     </ColorOutlinedButton>

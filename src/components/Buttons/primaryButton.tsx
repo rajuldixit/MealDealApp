@@ -35,11 +35,11 @@ const PrimaryButton: React.FC<IButtonType> = ({
     >
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.LEFT.toString() &&
-        cloneElement(buttonIcon.icon, { "stroke-width": 1 })}
+        cloneElement(buttonIcon.icon)}
       {label}
       {buttonIcon &&
         buttonIcon.position == IButtonIconPosition.RIGHT.toString() &&
-        cloneElement(buttonIcon.icon, { "stroke-width": 1 })}
+        cloneElement(buttonIcon.icon)}
     </ColorContainedButton>
   );
 };

@@ -30,7 +30,7 @@ const RecipeDetails = () => {
   };
   const ingredients = () => {
     return recipe?.ingredients.map((item, idx) => (
-      <Stack flexDirection={"row"} justifyContent={"start"} mb={0.5}>
+      <Stack flexDirection={"row"} justifyContent={"start"} mb={0.5} key={item}>
         <Typography sx={{ fontWeight: "bold" }} variant="body2" mr={0.5}>
           {recipe.measurements[idx]}
         </Typography>
@@ -125,7 +125,7 @@ const RecipeDetails = () => {
                 {recipe?.description}
               </Typography>
               {recipe?.basicDetails.tags.map((tag) => (
-                <InfoChip tag={tag} />
+                <InfoChip tag={tag} key={tag} />
               ))}
               <Stack
                 flexDirection={"row"}
@@ -189,7 +189,12 @@ const RecipeDetails = () => {
 
               {recipe?.instructions &&
                 recipe?.instructions.map((item) => (
-                  <Typography component={"div"} variant="body2" mb={3}>
+                  <Typography
+                    component={"div"}
+                    variant="body2"
+                    mb={3}
+                    key={item}
+                  >
                     {item}
                   </Typography>
                 ))}
