@@ -5,7 +5,7 @@ import {
   IBriefRecipeInfo,
   IRecipeInfo
 } from "../../utils/types";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import RecipeInfoCard from "../Cards/recipeInfoCard";
 import BriefInfoCard from "../Cards/briefInfoCard";
 import { BriefRecipeInfo, Types, initialState } from "../../context/AppReducer";
@@ -55,7 +55,30 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   };
 
   const showRecipe = (recipe: BriefRecipeInfo) => {};
+  const illustration = () => {
+    const noRecipeFoundMessage = "Sorry, there are no recipes like that";
+    const startWritingMessage = " Start searching for your recipe";
+    let response;
+    if (!actionExecuting) {
+      if (
+        !searchString &&
+        !selectedCategory &&
+        !selectedIngredient &&
+        !selectedArea
+      ) {
+        response = (
+          <Typography textAlign={"center"}>{startWritingMessage}</Typography>
+        );
+      } else if (recipes.length == 0 && briefRecipe.length == 0) {
+        response = (
+          <Typography textAlign={"center"}>{noRecipeFoundMessage}</Typography>
+        );
+      }
+    }
+    return response;
+  };
   useEffect(() => {
+    console.log("Suggested Recipe :", suggestRecipes);
     if (suggestRecipes && suggestRecipes.length > 0) {
       dispatch({
         type: Types.SaveSuggestedRecipes,
@@ -72,19 +95,25 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }, [mealByArea]);
 
   useEffect(() => {
+    console.log("By Area", !!selectedArea);
     if (!!selectedArea) getMealsByArea();
   }, [selectedArea]);
   useEffect(() => {
+    console.log("By Category", !!selectedCategory);
     if (!!selectedCategory)
       getSuggestedRecipesByCategoryOrIngredient(selectedCategory);
   }, [selectedCategory]);
   useEffect(() => {
-    !!searchString && searchString.length == 1
-      ? getSuggestedRecipes()
-      : getSuggestedRecipesByCategoryOrIngredient(searchString);
+    console.log("By string", !!searchString);
+    if (searchString.length > 0) {
+      !!searchString && searchString.length == 1
+        ? getSuggestedRecipes()
+        : getSuggestedRecipesByCategoryOrIngredient(searchString);
+    }
   }, [searchString]);
 
   useEffect(() => {
+    console.log("By ingredients :", !!selectedIngredient);
     if (!!selectedIngredient)
       getSuggestedRecipesByCategoryOrIngredient(selectedIngredient);
   }, [selectedIngredient]);
@@ -97,12 +126,7 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }
   return (
     <>
-      {!actionExecuting && (recipes.length == 0 || briefRecipe.length == 0) && (
-        <div>no recipe found</div>
-      )}
-      {!searchString && !selectedCategory && !selectedIngredient && (
-        <div>start writing</div>
-      )}
+      {illustration()}
       {!actionExecuting &&
         !selectedArea &&
         (!!searchString || !!selectedCategory || !!selectedIngredient) &&
@@ -135,7 +159,7 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
               briefRecipe.map((recipe: IBriefRecipeInfo) => (
                 <Grid
                   item
-                  xs={6}
+                  xs={12}
                   sm={4}
                   md={3}
                   onClick={() => selectedRecipe(recipe.idMeal)}

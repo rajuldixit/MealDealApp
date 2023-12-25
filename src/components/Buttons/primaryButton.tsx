@@ -8,7 +8,12 @@ const ColorContainedButton = styled(Button)<ButtonProps>(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#05820e"
   },
-  textTransform: "none"
+  textTransform: "none",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "12px",
+    height: "36px",
+    padding: "6px 10px !important"
+  }
 }));
 
 const PrimaryButton: React.FC<IButtonType> = ({

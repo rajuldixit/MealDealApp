@@ -94,7 +94,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
           {strTags &&
             strTags
               .split(",")
-              .splice(0, 3)
+              .splice(0, 2)
               .map((tag: string) => <InfoChip tag={tag} />)}
         </Box>
       </Box>

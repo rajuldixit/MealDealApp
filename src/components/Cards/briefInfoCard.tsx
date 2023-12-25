@@ -29,7 +29,7 @@ const BriefInfoCard: React.FC<ICardProps> = (props: ICardProps) => {
           height="140"
           image={strMealThumb}
           alt="green iguana"
-          sx={{ objectFit: "contain" }}
+          sx={{ objectFit: "cover" }}
         />
         <CardContent>
           <Typography

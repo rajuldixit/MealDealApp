@@ -4,7 +4,7 @@ export interface IButtonType {
   onClick: () => void;
   color?: string;
   style?: {
-    margin?: string;
+    margin?: {} | string;
     fontColor?: string;
     background?: string;
     borderColor?: string;

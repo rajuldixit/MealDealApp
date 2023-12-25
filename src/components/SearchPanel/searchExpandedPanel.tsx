@@ -174,64 +174,73 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
         />
         <SearchPaper>
           <Box>
-            <Stack flexDirection={"row"}>
-              <PrimaryButton
-                label={"Recipe"}
-                onClick={() => setType(OPTIONS.RECIPE)}
-                buttonIcon={{
-                  icon: <AutoStoriesIcon />,
-                  position: IButtonIconPosition.LEFT.toString()
-                }}
-                style={{
-                  background: type === OPTIONS.RECIPE ? "#15C421" : "#d3d3d3",
-                  borderColor: type === OPTIONS.RECIPE ? "#15C421" : "grey",
-                  fontColor: type === OPTIONS.RECIPE ? "white" : "grey",
-                  margin: "0 4px 0"
-                }}
-              />
-              <PrimaryButton
-                label={"Category"}
-                onClick={() => setType(OPTIONS.CATEGORY)}
-                buttonIcon={{
-                  icon: <TextSnippetIcon />,
-                  position: IButtonIconPosition.LEFT.toString()
-                }}
-                style={{
-                  background: type === OPTIONS.CATEGORY ? "#15C421" : "#d3d3d3",
-                  borderColor: type === OPTIONS.CATEGORY ? "#15C421" : "grey",
-                  fontColor: type === OPTIONS.CATEGORY ? "white" : "grey",
-                  margin: "0 4px 0"
-                }}
-              />
-              <PrimaryButton
-                label={"Areas"}
-                onClick={() => setType(OPTIONS.AREAS)}
-                buttonIcon={{
-                  icon: <PublicIcon />,
-                  position: IButtonIconPosition.LEFT.toString()
-                }}
-                style={{
-                  background: type === OPTIONS.AREAS ? "#15C421" : "#d3d3d3",
-                  borderColor: type === OPTIONS.AREAS ? "#15C421" : "grey",
-                  fontColor: type === OPTIONS.AREAS ? "white" : "grey",
-                  margin: "0 4px 0"
-                }}
-              />
-              <PrimaryButton
-                label={"Ingredients"}
-                onClick={() => setType(OPTIONS.INGREDIENTS)}
-                buttonIcon={{
-                  icon: <GrassIcon />,
-                  position: IButtonIconPosition.LEFT.toString()
-                }}
-                style={{
-                  background:
-                    type === OPTIONS.INGREDIENTS ? "#15C421" : "#d3d3d3",
-                  borderColor:
-                    type === OPTIONS.INGREDIENTS ? "#15C421" : "grey",
-                  fontColor: type === OPTIONS.INGREDIENTS ? "white" : "grey"
-                }}
-              />
+            <Stack
+              flexDirection={{ xs: "column", sm: "row" }}
+              spacing={{ xs: 1, sm: 0 }}
+            >
+              <Stack flexDirection={"row"}>
+                <PrimaryButton
+                  label={"Recipe"}
+                  onClick={() => setType(OPTIONS.RECIPE)}
+                  buttonIcon={{
+                    icon: <AutoStoriesIcon />,
+                    position: IButtonIconPosition.LEFT.toString()
+                  }}
+                  style={{
+                    background: type === OPTIONS.RECIPE ? "#15C421" : "#d3d3d3",
+                    borderColor: type === OPTIONS.RECIPE ? "#15C421" : "grey",
+                    fontColor: type === OPTIONS.RECIPE ? "white" : "grey",
+                    margin: "0 4px 0"
+                  }}
+                />
+                <PrimaryButton
+                  label={"Category"}
+                  onClick={() => setType(OPTIONS.CATEGORY)}
+                  buttonIcon={{
+                    icon: <TextSnippetIcon />,
+                    position: IButtonIconPosition.LEFT.toString()
+                  }}
+                  style={{
+                    background:
+                      type === OPTIONS.CATEGORY ? "#15C421" : "#d3d3d3",
+                    borderColor: type === OPTIONS.CATEGORY ? "#15C421" : "grey",
+                    fontColor: type === OPTIONS.CATEGORY ? "white" : "grey",
+                    margin: "0 4px 0"
+                  }}
+                />
+                <PrimaryButton
+                  label={"Areas"}
+                  onClick={() => setType(OPTIONS.AREAS)}
+                  buttonIcon={{
+                    icon: <PublicIcon />,
+                    position: IButtonIconPosition.LEFT.toString()
+                  }}
+                  style={{
+                    background: type === OPTIONS.AREAS ? "#15C421" : "#d3d3d3",
+                    borderColor: type === OPTIONS.AREAS ? "#15C421" : "grey",
+                    fontColor: type === OPTIONS.AREAS ? "white" : "grey",
+                    margin: "0 4px 0"
+                  }}
+                />
+              </Stack>
+              <Stack flexDirection={"row"}>
+                <PrimaryButton
+                  label={"Ingredients"}
+                  onClick={() => setType(OPTIONS.INGREDIENTS)}
+                  buttonIcon={{
+                    icon: <GrassIcon />,
+                    position: IButtonIconPosition.LEFT.toString()
+                  }}
+                  style={{
+                    background:
+                      type === OPTIONS.INGREDIENTS ? "#15C421" : "#d3d3d3",
+                    borderColor:
+                      type === OPTIONS.INGREDIENTS ? "#15C421" : "grey",
+                    fontColor: type === OPTIONS.INGREDIENTS ? "white" : "grey",
+                    margin: "0 4px 0"
+                  }}
+                />
+              </Stack>
             </Stack>
             <Stack
               sx={{
