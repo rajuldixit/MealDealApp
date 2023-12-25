@@ -1,4 +1,13 @@
+# MealDeal App
+## Overview
+#### MealDeal is an app to explore recipes based on category, areas, ingredients or by name.
 
+## Tech Stack
+#### 1. React js, 2. Typescript
+
+## Dependencies
+#### 1. Material UI for styling
+#### 2. Axios for Data fetching
 
 ### Screenshots
 ![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/21528783-dde4-4242-bfd4-bb4db402a440)
