@@ -31,11 +31,11 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.between("sm", "md")]: {
     width: "250px",
-    fontSize: "16px"
+    fontSize: "14px"
   },
   [theme.breakpoints.down("sm")]: {
     width: "230px",
-    fontSize: "14px"
+    fontSize: "12px"
   }
 }));
 interface IRecipe {
@@ -58,7 +58,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
     >
       <CardMedia
         component="img"
-        sx={{ width: 151 }}
+        sx={{ width: { xs: "124px", lg: "151px" } }}
         image={strMealThumb}
         alt="recipe-image"
       />
@@ -92,7 +92,10 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
         </CardContent>
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 2 }}>
           {strTags &&
-            strTags.split(",").map((tag: string) => <InfoChip tag={tag} />)}
+            strTags
+              .split(",")
+              .splice(0, 3)
+              .map((tag: string) => <InfoChip tag={tag} />)}
         </Box>
       </Box>
     </Card>

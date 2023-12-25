@@ -22,7 +22,13 @@ const Header = () => {
     }
   }, [errorMessage, actionExecuting]);
   return (
-    <Stack flexDirection={"row"} justifyContent={"space-between"} mb={2} mt={4}>
+    <Stack
+      flexDirection={"row"}
+      justifyContent={"space-between"}
+      alignItems={"center"}
+      mb={2}
+      mt={{ sm: "16px", md: "32px" }}
+    >
       <Typography
         sx={{
           display: { xs: "none", sm: "block" },

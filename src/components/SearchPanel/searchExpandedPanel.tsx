@@ -134,16 +134,17 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
           alignItems: "flex-start",
           "& .MuiPaper-root": {
             width: "100%",
-            maxWidth: { xs: "400px", sm: "600px", lg: "852px" } // Set your width here
+            maxWidth: { xs: "400px", sm: "100%", lg: "852px" }
           }
         }
       }}
     >
       <DialogContent
         sx={{
-          width: { xs: "300px", sm: "600px", md: "800px" },
+          width: "100%",
           justifyContent: "end",
-          alignItems: "flex-start"
+          alignItems: "flex-start",
+          boxSizing: "border-box"
         }}
       >
         <TextField
@@ -153,9 +154,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
           placeholder="Search"
           onKeyDown={(e) => onEnteringSearchWord(e)}
           onChange={(e) => onEnteringSearchStr(e.target.value)}
-          sx={{
-            width: { xs: "300px", sm: "600px", md: "800px" }
-          }}
+          fullWidth
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
