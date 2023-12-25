@@ -55,7 +55,7 @@ const NewRecipes = () => {
         <Grid container spacing={2}>
           {appState.randomRecipes &&
             appState.randomRecipes.slice(0, 4).map((recipe) => (
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} key={recipe.idMeal}>
                 <RecipeInfoCard
                   recipe={recipe}
                   onSelect={() => showRecipe(recipe)}

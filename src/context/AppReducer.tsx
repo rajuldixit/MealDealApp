@@ -71,7 +71,6 @@ export const initialState: IAppState = {
 };
 
 export const appReducer = (state = initialState, action: IActionType) => {
-  console.log(action, state);
   switch (action.type) {
     case Types.SaveAreas:
       return { ...state, areas: action.payload.areas };

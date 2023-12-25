@@ -25,6 +25,7 @@ const CategoriesList: React.FC<ICategoryProps> = ({
                 sm={4}
                 md={3}
                 onClick={() => selectedCategory(category.strCategory)}
+                key={category.idCategory}
               >
                 <CategoryInfoCard
                   key={category.idCategory}

@@ -15,10 +15,6 @@ const MoreRecipeOptions = () => {
     navigate(`/mealDetails/${recipe.idMeal}`);
   };
 
-  useEffect(() => {
-    console.log(appState.moreRecipes);
-  }, [appState]);
-
   return (
     <>
       {appState.moreRecipes && appState.moreRecipes.length > 0 && (
@@ -37,7 +33,7 @@ const MoreRecipeOptions = () => {
             <Grid container spacing={2}>
               {appState.moreRecipes &&
                 appState.moreRecipes.map((recipe) => (
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} key={recipe.idMeal}>
                     <RecipeInfoCard
                       recipe={recipe}
                       onSelect={() => showRecipe(recipe)}

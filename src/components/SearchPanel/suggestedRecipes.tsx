@@ -142,8 +142,9 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
                 <Grid
                   item
                   xs={12}
-                  md={6}
+                  sm={6}
                   onClick={() => selectedRecipe(recipe.idMeal)}
+                  key={recipe.idMeal}
                 >
                   <RecipeInfoCard
                     recipe={recipe}

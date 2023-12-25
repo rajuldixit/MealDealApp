@@ -28,6 +28,7 @@ const IngredientsList: React.FC<IingredientsProps> = ({
                 xs={3}
                 sm={2}
                 onClick={() => selectedIngredient(ingredient.strIngredient)}
+                key={ingredient.strIngredient}
               >
                 <InfoChip tag={ingredient.strIngredient} />
               </Grid>

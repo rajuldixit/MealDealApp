@@ -108,6 +108,7 @@ const LeftNav = () => {
           flexDirection={"row"}
           justifyContent={"start"}
           alignItems={"center"}
+          key={item.key}
           sx={{
             position: item.style?.position || "relative",
             bottom: item.style?.bottom || ""

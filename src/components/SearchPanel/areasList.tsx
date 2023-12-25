@@ -29,6 +29,7 @@ const AreasList: React.FC<IAreaProps> = ({ selectedArea }: IAreaProps) => {
                 xs={3}
                 sm={2}
                 onClick={() => selectedArea(area.strArea)}
+                key={area.strArea}
               >
                 <InfoChip tag={area.strArea} />
               </Grid>

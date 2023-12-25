@@ -10,11 +10,9 @@ const useUpdateSideNav = () => {
   const appState = useAppState();
 
   const updateSideNavToRecipe = (idMeal: string) => {
-    console.log(appState.moreRecipes);
     const newMoreRecipes = appState.moreRecipes.filter(
       (recipe) => recipe.idMeal !== idMeal
     );
-    console.log("new more :", newMoreRecipes);
     dispatch({
       type: Types.UpdateSideNavOption,
       payload: {

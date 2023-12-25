@@ -27,7 +27,7 @@ const TextButton: React.FC<IButtonType> = ({
         buttonIcon.position == IButtonIconPosition.RIGHT.toString() &&
         cloneElement(buttonIcon.icon, {
           "stroke-width": 1,
-          "margin-left": "4px"
+          "margin-right": "4px"
         })}
     </ColorTextButton>
   );
