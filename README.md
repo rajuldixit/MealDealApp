@@ -1,46 +1,24 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Screenshots
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/21528783-dde4-4242-bfd4-bb4db402a440)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/ff04ac1c-7917-4c56-b0dd-579d56942c3c)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/9771030d-53df-44f7-8a9c-5b3195ff45f7)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/430b04b7-30aa-45b8-9d0e-4ab31b194704)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/e0a46415-59a8-4902-ad53-63370c2bb21c)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/4447f852-95bc-4722-8917-6bb696f1c9ce)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/a03f8919-46c2-4527-9d1e-0161c22468fa)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/82787722-602d-4a79-98ce-80f0ca2978f8)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/8c2f7ee2-1529-4101-8c14-3a22fd6f713a)
+![image](https://github.com/rajuldixit/MealDealApp/assets/17043105/8358b541-b7e5-4aa1-80cc-0d71bd296679)
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
