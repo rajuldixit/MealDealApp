@@ -1,3 +1,5 @@
+import { NavPanelsKeys } from "../utils/constants";
+
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
@@ -16,7 +18,8 @@ export enum Types {
   SaveRandomRecipes = "SAVE_RANDOM_RECIPES",
   SaveSearchString = "SAVE_SEARCH_STRING",
   SaveSearchTagOption = "SAVE_SEARCH_TAG_OPTION",
-  SaveSuggestedRecipes = "SAVE_SUGGESTED_RECIPES"
+  SaveSuggestedRecipes = "SAVE_SUGGESTED_RECIPES",
+  UpdateSideNavOption = "UPDATE_SIDENAV"
 }
 
 export interface Ingredient {
@@ -52,6 +55,7 @@ export type IAppState = {
   searchString: string;
   searchTagOption: string;
   moreRecipes: Array<BriefRecipeInfo>;
+  activeSideNav: string;
 };
 export type IActionType = { payload: IAppState; type: string };
 
@@ -62,7 +66,8 @@ export const initialState: IAppState = {
   randomRecipes: [],
   searchString: "",
   searchTagOption: "",
-  moreRecipes: []
+  moreRecipes: [],
+  activeSideNav: NavPanelsKeys.Home.key
 };
 
 export const appReducer = (state = initialState, action: IActionType) => {
@@ -81,6 +86,8 @@ export const appReducer = (state = initialState, action: IActionType) => {
       return { ...state, searchString: action.payload.searchString };
     case Types.SaveSuggestedRecipes:
       return { ...state, moreRecipes: action.payload.moreRecipes };
+    case Types.UpdateSideNavOption:
+      return { ...state, activeSideNav: action.payload.activeSideNav };
     default:
       return state;
   }

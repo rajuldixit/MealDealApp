@@ -22,7 +22,8 @@ const useFormatRecipeDetails = () => {
           id: raw.idMeal,
           name: raw.strMeal,
           image: raw.strMealThumb,
-          tags: raw.strTags.split(","),
+          tags:
+            raw.strTags && raw.strTags.length > 0 ? raw.strTags.split(",") : [],
           duration: "2h 15m",
           expertLevel: ExperienceLevel.ADVANCE
         },

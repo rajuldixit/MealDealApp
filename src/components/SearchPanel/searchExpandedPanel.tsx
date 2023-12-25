@@ -25,6 +25,8 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import GrassIcon from "@mui/icons-material/Grass";
 import PrimaryButton from "../Buttons/primaryButton";
 import { IButtonIconPosition } from "../../utils/types";
+import { NavPanelsKeys } from "../../utils/constants";
+import useUpdateSideNav from "../../hooks/useUpdateSideNav";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
   height: "auto",
@@ -55,8 +57,8 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
   const [inputValue, setInputValue] = useState();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { updateSideNavToRecipe } = useUpdateSideNav();
 
   const resetAndClose = () => {
     setSelectedArea("");
@@ -69,9 +71,9 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
     resetAndClose();
   };
 
-  const handleListItemClick = (value: string) => {
+  const handleListItemClick = (idMeal: string) => {
     resetAndClose();
-    navigate(`/mealDetails/${value}`);
+    updateSideNavToRecipe(idMeal);
   };
   const onSelectedCategory = (category: string) => {
     setSelectedCategory((prev) => category);

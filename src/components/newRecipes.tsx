@@ -11,15 +11,17 @@ import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useDataApi from "../hooks/useDataApi";
-import { useAppState } from "../context/AppContext";
-import { BriefRecipeInfo } from "../context/AppReducer";
+import { useAppDispatch, useAppState } from "../context/AppContext";
+import { BriefRecipeInfo, Types, initialState } from "../context/AppReducer";
+import { NavPanelsKeys } from "../utils/constants";
+import useUpdateSideNav from "../hooks/useUpdateSideNav";
 
 const NewRecipes = () => {
   const appState = useAppState();
   const [recipes, setRecipes] = useState<BriefRecipeInfo[]>(new Array());
-  const navigate = useNavigate();
+  const { updateSideNavToRecipe } = useUpdateSideNav();
   const showRecipe = (recipe: BriefRecipeInfo) => {
-    navigate(`/mealDetails/${recipe.idMeal}`);
+    updateSideNavToRecipe(recipe.idMeal);
   };
 
   useEffect(() => {

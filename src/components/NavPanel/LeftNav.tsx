@@ -1,5 +1,5 @@
 import { Paper, Typography, styled, Stack } from "@mui/material";
-import React, { InvalidEvent, useState } from "react";
+import React, { InvalidEvent, useEffect, useState } from "react";
 
 import { NavPanelsKeys } from "../../utils/constants";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
@@ -9,6 +9,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { IButtonIconPosition } from "../../utils/types";
 import TextButton from "../Buttons/textButton";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppState } from "../../context/AppContext";
+import { Types, initialState } from "../../context/AppReducer";
 
 const LeftNavPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
@@ -67,10 +70,25 @@ const defaultNavItems = [
 ];
 const LeftNav = () => {
   const [navItems, setNavItems] = useState<INavItem[]>(defaultNavItems);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const appState = useAppState();
 
-  const onSelectNavOption = (item: INavItem) => {
+  const onSelectNavOption = (itemKey: string) => {
+    dispatch({
+      type: Types.UpdateSideNavOption,
+      payload: {
+        ...initialState,
+        activeSideNav: itemKey
+      }
+    });
+  };
+
+  useEffect(() => {
+    console.log("inleft", appState.activeSideNav);
+    const activeSideNav = appState.activeSideNav;
     const newVal = navItems.filter((nav) => {
-      if (nav.key == item.key) {
+      if (nav.key == activeSideNav) {
         nav.isActive = true;
       } else {
         nav.isActive = false;
@@ -78,7 +96,10 @@ const LeftNav = () => {
       return nav;
     });
     setNavItems(newVal);
-  };
+    if (activeSideNav == NavPanelsKeys.Home.key) {
+      navigate("/");
+    }
+  }, [appState]);
 
   return (
     <LeftNavPaper elevation={0}>
@@ -96,7 +117,7 @@ const LeftNav = () => {
           <TextButton
             key={item.key}
             label={item.title}
-            onClick={() => onSelectNavOption(item)}
+            onClick={() => onSelectNavOption(item.key)}
             color={item.isActive ? "#15C421" : "grey"}
             buttonIcon={{
               icon: <item.icon />,
