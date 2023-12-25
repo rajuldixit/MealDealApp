@@ -122,7 +122,7 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
 
   const onSettingsearchTagOption = (option: string) => {
     dispatch({
-      type: Types.SaveRandomRecipes,
+      type: Types.SaveSearchTagOption,
       payload: {
         ...initialState,
         searchTagOption: option

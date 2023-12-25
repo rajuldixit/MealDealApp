@@ -42,10 +42,10 @@ export interface Category {
 
 export interface BriefRecipeInfo {
   idMeal: string;
-  strCategory: string;
+  strCategory?: string;
   strMeal: string;
   strMealThumb: string;
-  strTags: string;
+  strTags?: string;
 }
 export type IAppState = {
   ingredients: Array<Ingredient>;
@@ -71,6 +71,7 @@ export const initialState: IAppState = {
 };
 
 export const appReducer = (state = initialState, action: IActionType) => {
+  console.log(action, state);
   switch (action.type) {
     case Types.SaveAreas:
       return { ...state, areas: action.payload.areas };

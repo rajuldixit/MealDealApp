@@ -78,8 +78,8 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
     return response;
   };
   useEffect(() => {
-    console.log("Suggested Recipe :", suggestRecipes);
     if (suggestRecipes && suggestRecipes.length > 0) {
+      setBriefRecipe(new Array());
       dispatch({
         type: Types.SaveSuggestedRecipes,
         payload: { ...initialState, moreRecipes: suggestRecipes }
@@ -91,20 +91,26 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }, [suggestRecipes]);
 
   useEffect(() => {
-    if (mealByArea && mealByArea.length > 0) setBriefRecipe([...mealByArea]);
+    if (mealByArea && mealByArea.length > 0) {
+      setRecipes(new Array());
+      dispatch({
+        type: Types.SaveSuggestedRecipes,
+        payload: { ...initialState, moreRecipes: mealByArea }
+      });
+      setBriefRecipe([...mealByArea]);
+    } else {
+      setBriefRecipe(new Array());
+    }
   }, [mealByArea]);
 
   useEffect(() => {
-    console.log("By Area", !!selectedArea);
     if (!!selectedArea) getMealsByArea();
   }, [selectedArea]);
   useEffect(() => {
-    console.log("By Category", !!selectedCategory);
     if (!!selectedCategory)
       getSuggestedRecipesByCategoryOrIngredient(selectedCategory);
   }, [selectedCategory]);
   useEffect(() => {
-    console.log("By string", !!searchString);
     if (searchString.length > 0) {
       !!searchString && searchString.length == 1
         ? getSuggestedRecipes()
@@ -113,7 +119,6 @@ const SuggestedRecipes: React.FC<ISuggestedProps> = ({
   }, [searchString]);
 
   useEffect(() => {
-    console.log("By ingredients :", !!selectedIngredient);
     if (!!selectedIngredient)
       getSuggestedRecipesByCategoryOrIngredient(selectedIngredient);
   }, [selectedIngredient]);

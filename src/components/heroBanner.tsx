@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Category, MealsByCategory } from "../utils/types";
 import useDataApi from "../hooks/useDataApi";
 import useUpdateSideNav from "../hooks/useUpdateSideNav";
+import useResetAppState from "../hooks/useResetAppState";
 
 const HeroBannerPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
@@ -39,6 +40,7 @@ const HeroBanner = () => {
   const strCategory = "Side";
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const { updateSideNavToRecipe } = useUpdateSideNav();
+  const { updateSuggestedRecipes } = useResetAppState();
   const {
     fetchMealsByCategory,
     heroBannerMeal,
@@ -48,6 +50,7 @@ const HeroBanner = () => {
   const [recipe, setRecipe] = useState<MealsByCategory>(defaultRecipeData);
 
   const showRecipe = () => {
+    updateSuggestedRecipes();
     updateSideNavToRecipe(recipe.idMeal);
   };
   const heroRecipe = async () => {

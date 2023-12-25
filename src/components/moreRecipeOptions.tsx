@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppState } from "../context/AppContext";
 import { Stack, Typography, Grid } from "@mui/material";
 import { IButtonIconPosition } from "../utils/types";
@@ -15,30 +15,38 @@ const MoreRecipeOptions = () => {
     navigate(`/mealDetails/${recipe.idMeal}`);
   };
 
+  useEffect(() => {
+    console.log(appState.moreRecipes);
+  }, [appState]);
+
   return (
     <>
-      <Stack
-        flexDirection={"row"}
-        alignItems={"center"}
-        justifyContent={"space-between"}
-        sx={{ marginTop: "48px" }}
-      >
-        <Typography sx={{ typography: { xs: "h6", sm: "h5" } }}>
-          More Recipes
-        </Typography>
-      </Stack>
-      {appState.moreRecipes && (
-        <Grid container spacing={2}>
-          {appState.moreRecipes &&
-            appState.moreRecipes.map((recipe) => (
-              <Grid item xs={12} md={6}>
-                <RecipeInfoCard
-                  recipe={recipe}
-                  onSelect={() => showRecipe(recipe)}
-                />
-              </Grid>
-            ))}
-        </Grid>
+      {appState.moreRecipes && appState.moreRecipes.length > 0 && (
+        <>
+          <Stack
+            flexDirection={"row"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            sx={{ marginTop: "48px" }}
+          >
+            <Typography sx={{ typography: { xs: "h6", sm: "h5" } }}>
+              More Recipes
+            </Typography>
+          </Stack>
+          {appState.moreRecipes && (
+            <Grid container spacing={2}>
+              {appState.moreRecipes &&
+                appState.moreRecipes.map((recipe) => (
+                  <Grid item xs={12} md={6}>
+                    <RecipeInfoCard
+                      recipe={recipe}
+                      onSelect={() => showRecipe(recipe)}
+                    />
+                  </Grid>
+                ))}
+            </Grid>
+          )}
+        </>
       )}
     </>
   );

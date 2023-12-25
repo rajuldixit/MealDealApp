@@ -15,12 +15,15 @@ import { useAppDispatch, useAppState } from "../context/AppContext";
 import { BriefRecipeInfo, Types, initialState } from "../context/AppReducer";
 import { NavPanelsKeys } from "../utils/constants";
 import useUpdateSideNav from "../hooks/useUpdateSideNav";
+import useResetAppState from "../hooks/useResetAppState";
 
 const NewRecipes = () => {
   const appState = useAppState();
   const [recipes, setRecipes] = useState<BriefRecipeInfo[]>(new Array());
   const { updateSideNavToRecipe } = useUpdateSideNav();
+  const { updateSuggestedRecipes } = useResetAppState();
   const showRecipe = (recipe: BriefRecipeInfo) => {
+    updateSuggestedRecipes();
     updateSideNavToRecipe(recipe.idMeal);
   };
 
