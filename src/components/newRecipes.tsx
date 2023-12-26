@@ -13,7 +13,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useDataApi from "../hooks/useDataApi";
 import { useAppDispatch, useAppState } from "../context/AppContext";
 import { BriefRecipeInfo, Types, initialState } from "../context/AppReducer";
-import { NavPanelsKeys } from "../utils/constants";
+import { NavPanelsKeys, appColors } from "../utils/constants";
 import useUpdateSideNav from "../hooks/useUpdateSideNav";
 import useResetAppState from "../hooks/useResetAppState";
 
@@ -39,7 +39,12 @@ const NewRecipes = () => {
         justifyContent={"space-between"}
         sx={{ marginTop: "48px", marginBottom: "24px" }}
       >
-        <Typography sx={{ typography: { xs: "h6", sm: "h5" } }}>
+        <Typography
+          sx={{
+            typography: { xs: "h6", sm: "h5" },
+            color: appColors.primaryTextColor
+          }}
+        >
           New Recipes
         </Typography>
         <TextButton

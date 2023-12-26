@@ -25,7 +25,7 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import GrassIcon from "@mui/icons-material/Grass";
 import PrimaryButton from "../Buttons/primaryButton";
 import { IButtonIconPosition } from "../../utils/types";
-import { NavPanelsKeys } from "../../utils/constants";
+import { NavPanelsKeys, appColors } from "../../utils/constants";
 import useUpdateSideNav from "../../hooks/useUpdateSideNav";
 
 const SearchPaper = styled(Paper)(({ theme }) => ({
@@ -156,9 +156,9 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
       >
         <TextField
           id="recipe-search-bar"
-          label="Search"
+          label="Search for any recipe"
           value={inputValue}
-          placeholder="Search"
+          placeholder="Search for any recipe"
           onKeyDown={(e) => onEnteringSearchWord(e)}
           onChange={(e) => onEnteringSearchStr(e.target.value)}
           fullWidth
@@ -187,9 +187,18 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                     position: IButtonIconPosition.LEFT.toString()
                   }}
                   style={{
-                    background: type === OPTIONS.RECIPE ? "#15C421" : "#d3d3d3",
-                    borderColor: type === OPTIONS.RECIPE ? "#15C421" : "grey",
-                    fontColor: type === OPTIONS.RECIPE ? "white" : "grey",
+                    background:
+                      type === OPTIONS.RECIPE
+                        ? appColors.primaryActionColor
+                        : appColors.disabledBGColor,
+                    borderColor:
+                      type === OPTIONS.RECIPE
+                        ? appColors.primaryActionColor
+                        : appColors.disabledTextColor,
+                    fontColor:
+                      type === OPTIONS.RECIPE
+                        ? appColors.white
+                        : appColors.disabledTextColor,
                     margin: "0 4px 0"
                   }}
                 />
@@ -202,9 +211,17 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                   }}
                   style={{
                     background:
-                      type === OPTIONS.CATEGORY ? "#15C421" : "#d3d3d3",
-                    borderColor: type === OPTIONS.CATEGORY ? "#15C421" : "grey",
-                    fontColor: type === OPTIONS.CATEGORY ? "white" : "grey",
+                      type === OPTIONS.CATEGORY
+                        ? appColors.primaryActionColor
+                        : appColors.disabledBGColor,
+                    borderColor:
+                      type === OPTIONS.CATEGORY
+                        ? appColors.primaryActionColor
+                        : appColors.disabledTextColor,
+                    fontColor:
+                      type === OPTIONS.CATEGORY
+                        ? appColors.white
+                        : appColors.disabledTextColor,
                     margin: "0 4px 0"
                   }}
                 />
@@ -216,9 +233,18 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                     position: IButtonIconPosition.LEFT.toString()
                   }}
                   style={{
-                    background: type === OPTIONS.AREAS ? "#15C421" : "#d3d3d3",
-                    borderColor: type === OPTIONS.AREAS ? "#15C421" : "grey",
-                    fontColor: type === OPTIONS.AREAS ? "white" : "grey",
+                    background:
+                      type === OPTIONS.AREAS
+                        ? appColors.primaryActionColor
+                        : appColors.disabledBGColor,
+                    borderColor:
+                      type === OPTIONS.AREAS
+                        ? appColors.primaryActionColor
+                        : appColors.disabledTextColor,
+                    fontColor:
+                      type === OPTIONS.AREAS
+                        ? appColors.white
+                        : appColors.disabledTextColor,
                     margin: "0 4px 0"
                   }}
                 />
@@ -233,10 +259,17 @@ const SearchExpandedPanel: React.FC<DialogProps> = (props: DialogProps) => {
                   }}
                   style={{
                     background:
-                      type === OPTIONS.INGREDIENTS ? "#15C421" : "#d3d3d3",
+                      type === OPTIONS.INGREDIENTS
+                        ? appColors.primaryActionColor
+                        : appColors.disabledBGColor,
                     borderColor:
-                      type === OPTIONS.INGREDIENTS ? "#15C421" : "grey",
-                    fontColor: type === OPTIONS.INGREDIENTS ? "white" : "grey",
+                      type === OPTIONS.INGREDIENTS
+                        ? appColors.primaryActionColor
+                        : appColors.disabledTextColor,
+                    fontColor:
+                      type === OPTIONS.INGREDIENTS
+                        ? appColors.white
+                        : appColors.disabledTextColor,
                     margin: "0 4px 0"
                   }}
                 />

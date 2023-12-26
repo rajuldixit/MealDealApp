@@ -1,6 +1,7 @@
 import React, { cloneElement } from "react";
 import { IButtonIconPosition, IButtonType } from "../../utils/types";
 import { Button, ButtonProps, Typography, styled } from "@mui/material";
+import { appColors } from "../../utils/constants";
 
 const ColorTextButton = styled(Button)<ButtonProps>(({ theme }) => ({
   textTransform: "none"
@@ -10,7 +11,7 @@ const TextButton: React.FC<IButtonType> = ({
   label,
   onClick,
   buttonIcon,
-  color = "#15C421"
+  color = appColors.primaryActionColor
 }) => {
   return (
     <ColorTextButton onClick={onClick} variant="text" sx={{ color: color }}>

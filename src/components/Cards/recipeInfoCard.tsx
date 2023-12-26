@@ -14,11 +14,13 @@ import InfoChip from "../Chips/infoChip";
 import ClockIcon from "../../assets/icons/clock.svg";
 import GraphIcon from "../../assets/icons/graph.svg";
 import { BriefRecipeInfo } from "../../context/AppReducer";
+import { appColors } from "../../utils/constants";
 
 const TitleTypography = styled(Typography)(({ theme }) => ({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   overflow: "hidden",
+  color: appColors.primaryTextColor,
   [theme.breakpoints.up("lg")]: {
     width: "260px",
     fontWeight: "bold",
@@ -70,7 +72,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
               <img src={ClockIcon} />
               <Typography
                 fontSize={{ xs: "12px", sm: "14px" }}
-                color="text.secondary"
+                color={appColors.secondaryTextColor}
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >
@@ -81,7 +83,7 @@ const RecipeInfoCard: React.FC<IRecipe> = (props: IRecipe) => {
               <img src={GraphIcon} />
               <Typography
                 fontSize={{ xs: "12px", sm: "14px" }}
-                color="text.secondary"
+                color={appColors.secondaryTextColor}
                 component="div"
                 sx={{ marginLeft: "4px" }}
               >

@@ -1,12 +1,18 @@
 import React, { cloneElement } from "react";
 import { IButtonIconPosition, IButtonType } from "../../utils/types";
 import { Button, ButtonProps, styled } from "@mui/material";
+import { appColors } from "../../utils/constants";
 
 const ColorOutlinedButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  color: "#15C421",
-  borderColor: "#15C421",
-  backgroundColor: "#fff",
-  textTransform: "none"
+  color: appColors.primaryActionColor,
+  borderColor: appColors.primaryActionColor,
+  backgroundColor: appColors.white,
+  textTransform: "none",
+  "&:hover": {
+    color: appColors.primaryActionColor,
+    borderColor: appColors.primaryActionColor,
+    backgroundColor: appColors.white
+  }
 }));
 
 const SecondaryButton: React.FC<IButtonType> = ({

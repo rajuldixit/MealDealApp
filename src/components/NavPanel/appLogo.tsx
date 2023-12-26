@@ -1,10 +1,11 @@
 import { Paper, Stack, Typography, styled } from "@mui/material";
 import React from "react";
 import LogoICon from "../../assets/icons/logo.svg";
+import { appColors } from "../../utils/constants";
 
 const LogoPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
-  backgroundColor: "#080F1D",
+  backgroundColor: appColors.primaryTextColor,
   boxSizing: "border-box",
   display: "flex",
   alignItems: "center",
@@ -33,16 +34,15 @@ const AppLogo = () => {
           sx={{
             fontSize: { xs: "16px", sm: "14px", md: "16px" },
             fontWeight: "bold",
-            color: "#AAB1BB"
+            color: appColors.grey50
           }}
-          color="white"
         >
           Meal Deal
         </Typography>
         <Typography
           sx={{
             fontSize: { xs: "14px", sm: "12px", md: "14px" },
-            color: "#AAB1BB"
+            color: appColors.grey300
           }}
         >
           Recipes for healthy life

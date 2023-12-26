@@ -14,7 +14,7 @@ import useDataApi from "../hooks/useDataApi";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../context/AppContext";
 import { Types, initialState } from "../context/AppReducer";
-import { NavPanelsKeys } from "../utils/constants";
+import { NavPanelsKeys, appColors } from "../utils/constants";
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -31,10 +31,16 @@ const RecipeDetails = () => {
   const ingredients = () => {
     return recipe?.ingredients.map((item, idx) => (
       <Stack flexDirection={"row"} justifyContent={"start"} mb={0.5} key={item}>
-        <Typography sx={{ fontWeight: "bold" }} variant="body2" mr={0.5}>
+        <Typography
+          sx={{ fontWeight: "bold", color: appColors.primaryTextColor }}
+          variant="body2"
+          mr={0.5}
+        >
           {recipe.measurements[idx]}
         </Typography>
-        <Typography variant="body2">{item}</Typography>
+        <Typography variant="body2" color={appColors.secondaryTextColor}>
+          {item}
+        </Typography>
       </Stack>
     ));
   };
@@ -95,7 +101,7 @@ const RecipeDetails = () => {
                   <img src={ClockIcon} />
                   <Typography
                     variant="subtitle1"
-                    color="text.secondary"
+                    color={appColors.secondaryTextColor}
                     component="div"
                     sx={{ marginLeft: "4px" }}
                   >
@@ -106,7 +112,7 @@ const RecipeDetails = () => {
                   <img src={GraphIcon} />
                   <Typography
                     variant="subtitle1"
-                    color="text.secondary"
+                    color={appColors.secondaryTextColor}
                     component="div"
                     sx={{ marginLeft: "4px" }}
                   >
@@ -117,11 +123,21 @@ const RecipeDetails = () => {
               <Typography
                 component={"div"}
                 mt={2}
-                sx={{ typography: { xs: "h5", sm: "h5", md: "h5", lg: "h4" } }}
+                color={appColors.primaryTextColor}
+                sx={{
+                  typography: { xs: "h5", sm: "h5", md: "h5", lg: "h4" },
+                  fontWeight: "bold !important"
+                }}
               >
                 {recipe?.basicDetails.name}
               </Typography>
-              <Typography component={"div"} variant="body1" mt={2} mb={2}>
+              <Typography
+                component={"div"}
+                variant="body1"
+                mt={2}
+                mb={2}
+                color={appColors.secondaryTextColor}
+              >
                 {recipe?.description}
               </Typography>
               {recipe?.basicDetails.tags.map((tag) => (
@@ -167,7 +183,12 @@ const RecipeDetails = () => {
             }}
           >
             <Box sx={{ width: { xs: "100%", sm: "240px", lg: "300px" } }}>
-              <Typography component={"div"} variant="h6" mb={2}>
+              <Typography
+                component={"div"}
+                variant="h6"
+                mb={2}
+                color={appColors.primaryTextColor}
+              >
                 Ingredients
               </Typography>
               {ingredients()}
@@ -183,7 +204,12 @@ const RecipeDetails = () => {
                 }
               }}
             >
-              <Typography component={"div"} variant="h6" mb={2}>
+              <Typography
+                component={"div"}
+                variant="h6"
+                mb={2}
+                color={appColors.primaryTextColor}
+              >
                 Instructions
               </Typography>
 
@@ -194,6 +220,7 @@ const RecipeDetails = () => {
                     variant="body2"
                     mb={3}
                     key={item}
+                    color={appColors.secondaryTextColor}
                   >
                     {item}
                   </Typography>

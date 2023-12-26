@@ -14,6 +14,7 @@ import { Category, MealsByCategory } from "../utils/types";
 import useDataApi from "../hooks/useDataApi";
 import useUpdateSideNav from "../hooks/useUpdateSideNav";
 import useResetAppState from "../hooks/useResetAppState";
+import { appColors } from "../utils/constants";
 
 const HeroBannerPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
@@ -83,7 +84,10 @@ const HeroBanner = () => {
             <Box>
               <Typography
                 my={2}
-                sx={{ typography: { xs: "h6", sm: "h5", md: "h4", lg: "h3" } }}
+                sx={{
+                  typography: { xs: "h6", sm: "h5", md: "h4", lg: "h3" },
+                  color: appColors.primaryTextColor
+                }}
               >
                 {recipe?.strMeal}
               </Typography>

@@ -20,11 +20,11 @@ const SearchPanel = () => {
     <>
       <TextField
         id="recipe-search-bar"
-        label="Search"
-        placeholder="Search"
+        label="Search for any recipe"
+        placeholder="Search for any recipe"
         onClick={handleClickOpen}
         sx={{
-          width: { xs: "100%", sm: "200px" }
+          width: { xs: "100%", sm: "300px" }
         }}
         InputProps={{
           endAdornment: (

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import SearchPanel from "../SearchPanel";
 import { useAppDispatch } from "../../context/AppContext";
 import useInitialStateSetup from "../../hooks/useInitialStateSetup";
+import { appColors } from "../../utils/constants";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -27,13 +28,14 @@ const Header = () => {
       justifyContent={"space-between"}
       alignItems={"center"}
       mb={2}
-      mt={{ sm: "16px", md: "32px" }}
+      mt={{ sm: "16px", md: "18px" }}
     >
       <Typography
         sx={{
           display: { xs: "none", sm: "block" },
           fontWeight: "400",
-          fontSize: { sm: "18px", md: "22px" }
+          color: appColors.primaryTextColor,
+          fontSize: { sm: "18px", md: "32px" }
         }}
       >
         Discover Recipes

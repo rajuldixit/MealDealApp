@@ -1,12 +1,13 @@
 import { Button, ButtonProps, styled } from "@mui/material";
 import React, { cloneElement } from "react";
 import { IButtonIconPosition, IButtonType } from "../../utils/types";
+import { appColors } from "../../utils/constants";
 
 const ColorContainedButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  color: "white",
-  backgroundColor: "#15C421",
+  color: appColors.white,
+  backgroundColor: appColors.primaryActionColor,
   "&:hover": {
-    backgroundColor: "#05820e"
+    backgroundColor: appColors.primaryActionColor
   },
   textTransform: "none",
   [theme.breakpoints.down("sm")]: {
